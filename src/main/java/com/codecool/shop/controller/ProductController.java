@@ -6,6 +6,7 @@ import com.codecool.shop.dao.ProductDaoSqlite;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import com.codecool.shop.view.ProductView;
 
 
 import java.util.ArrayList;
@@ -13,14 +14,13 @@ import java.util.List;
 
 
 public class ProductController {
+   private ProductDao productDao = new ProductDaoSqlite();
+   private ProductView view = new ProductView();
 
     public void listProduct(){
-        ProductDao productDao = new ProductDaoSqlite();
         List<Product> products = productDao.getAll();
+        view.displayView(products);
 
-        for(Product p:products) {
-            System.out.println(p.getName());
-        }
 
     }
 
