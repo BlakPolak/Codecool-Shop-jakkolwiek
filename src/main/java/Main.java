@@ -3,8 +3,6 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
 
