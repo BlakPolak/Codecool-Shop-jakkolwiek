@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class ProductView {
 
-    public void displayView(List<Product> products) {
+    public static void displayView(List<Product> products) {
         for(Product p: products) {
             System.out.println(p.getName());
         }
