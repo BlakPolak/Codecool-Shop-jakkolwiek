@@ -36,7 +36,7 @@ public class ProductDaoSqlite implements ProductDao {
         try {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/database.db");
             Statement statement =connection.createStatement();
-            ResultSet result = statement.executeQuery("SELECT ALL from products");
+            ResultSet result = statement.executeQuery("SELECT * from products");
             while (result.next()) {
                 Product product = new Product (
                     result.getString("name"),
@@ -58,12 +58,12 @@ public class ProductDaoSqlite implements ProductDao {
 
 
 
-        Product product1 = new Product("product 1", 2.5f, "PLN", "description", category, supplier);
-        Product product2 = new Product("product 2", 2.5f, "PLN", "description", category, supplier);
-        Product product3 = new Product("product 3", 2.5f, "PLN", "description", category, supplier);
-        products.add(product1);
-        products.add(product2);
-        products.add(product3);
+//        Product product1 = new Product("product 1", 2.5f, "PLN", "description", category, supplier);
+//        Product product2 = new Product("product 2", 2.5f, "PLN", "description", category, supplier);
+//        Product product3 = new Product("product 3", 2.5f, "PLN", "description", category, supplier);
+//        products.add(product1);
+//        products.add(product2);
+//        products.add(product3);
         return products;
     }
 
