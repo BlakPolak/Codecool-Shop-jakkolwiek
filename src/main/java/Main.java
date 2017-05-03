@@ -1,6 +1,6 @@
-import com.codecool.shop.dao.ProductDaoSqlite;
+import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.SqliteJDBCConnector;
-import com.codecool.shop.view.ProductView;
+
 
 
 public class Main {
@@ -11,8 +11,8 @@ public class Main {
             SqliteJDBCConnector.createTable();
         }
 
-        ProductDaoSqlite productDaoSqlite = new ProductDaoSqlite();
-        ProductView.displayView(productDaoSqlite.getAll());
+        ProductController productController = new ProductController();
+        productController.listProduct();
 
     }
 
