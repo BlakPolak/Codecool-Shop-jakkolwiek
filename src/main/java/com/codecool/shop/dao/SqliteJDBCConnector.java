@@ -24,7 +24,7 @@ public class SqliteJDBCConnector {
         try {
             Connection connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/database.db");
             Statement statement =connection.createStatement();
-            statement.executeQuery(
+            statement.execute(
                     "CREATE TABLE IF NOT EXISTS products\n" +
                             "(\n" +
                             "   id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
