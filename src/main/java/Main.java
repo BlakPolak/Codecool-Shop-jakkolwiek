@@ -1,3 +1,4 @@
+import com.codecool.shop.Application;
 import com.codecool.shop.controller.MainMenuController;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.SqliteJDBCConnector;
@@ -9,18 +10,9 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        if(args.length > 0 && args[0].equals("--create-tables")) {
-            try {
-                SqliteJDBCConnector.createTables();
-            } catch (SQLException e) {
-                System.out.println("Cannot create tables in DB");
-                System.out.println(e);
-            }
-        }
 
-        MainMenuController mainMenuController = new MainMenuController();
-        mainMenuController.mainMenuAction();
+    public static void main(String[] args) {
+        new Application();
     }
 
 
