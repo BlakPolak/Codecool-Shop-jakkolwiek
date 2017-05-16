@@ -40,11 +40,10 @@ public class ProductController {
 
     public void listProductsBySupplier() {
         List<Supplier> suppliers = productSupplierDao.getAll();
-        view.displaySuppliersList(suppliers);
 
-        Integer supplierId = UserInput.getUserInput();
-        Supplier supplier = productSupplierDao.find(supplierId);
-        List<Product> products = productDao.getBy(supplier);
-        view.displayProductsList(products);
+//        Integer supplierId = UserInput.getUserInput();
+//        Supplier supplier = productSupplierDao.find(supplierId);
+//        List<Product> products = productDao.getBy(supplier);
+//        view.displayProductsList(products);
     }
 }
