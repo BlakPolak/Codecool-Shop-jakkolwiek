@@ -1,25 +1,34 @@
 
 package com.codecool.shop;
 
-import com.codecool.shop.controller.MainMenuController;
+import com.codecool.shop.model.Basket;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Application {
+    private static final Application app = new Application();
     private Connection connection;
+    private Basket basket = new Basket();
 
     public Application() {
+    Routes routes = new Routes();
         System.out.println("Initializing application...");
 
         try {
             this.connectToDb();
-            this.dispatchMainMenuController();
+            routes.run();
         } catch (SQLException e) {
-            System.out.println("Application initialization failed...");
+            System.out.println("Application initial ization failed...");
             e.printStackTrace();
         }
+
+    }
+
+    public Basket getBasket() {
+        return basket;
     }
 
     private void connectToDb() throws SQLException {
@@ -27,8 +36,4 @@ public class Application {
         this.connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/database.db");
     }
 
-    private void dispatchMainMenuController() {
-        MainMenuController mainMenuController = new MainMenuController();
-        mainMenuController.mainMenuAction();
-    }
 }
