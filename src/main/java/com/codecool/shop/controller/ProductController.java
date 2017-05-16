@@ -6,9 +6,12 @@ import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import com.codecool.shop.view.ProductView;
 import com.codecool.shop.view.UserInput;
+import spark.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductController {
     private ProductDao productDao = new ProductDaoSqlite();
@@ -16,9 +19,11 @@ public class ProductController {
     private ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite();
     private ProductView view = new ProductView();
 
-    public void listProducts() {
+    public ModelAndView listProducts() {
         List<Product> products = productDao.getAll();
-        view.displayProductsList(products);
+        Map<String, Object> model = new HashMap<>();
+        model.put("products", products);
+        return new ModelAndView(model, "product/index");
     }
 
     public void listProductsByCategory() {
