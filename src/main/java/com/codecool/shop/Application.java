@@ -8,18 +8,21 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Application {
+    private static final Application app = new Application();
     private Connection connection;
 
     public Application() {
+    Routes routes = new Routes();
         System.out.println("Initializing application...");
 
         try {
             this.connectToDb();
-            this.dispatchMainMenuController();
+            routes.run();
         } catch (SQLException e) {
-            System.out.println("Application initialization failed...");
+            System.out.println("Application initial ization failed...");
             e.printStackTrace();
         }
+
     }
 
     private void connectToDb() throws SQLException {
