@@ -4,9 +4,9 @@ import com.codecool.shop.dao.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
-import com.codecool.shop.view.ProductView;
-import com.codecool.shop.view.UserInput;
 import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,32 +17,34 @@ public class ProductController {
     private ProductDao productDao = new ProductDaoSqlite();
     private ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite();
     private ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite();
-    private ProductView view = new ProductView();
 
     public ModelAndView listProducts() {
+        List<ProductCategory> category = productCategoryDao.getAll();
         List<Product> products = productDao.getAll();
         Map<String, Object> model = new HashMap<>();
         model.put("products", products);
+        model.put("categories", category);
         return new ModelAndView(model, "product/index");
     }
 
-    public void listProductsByCategory() {
-        List<ProductCategory> categories = productCategoryDao.getAll();
-        view.displayCategoriesList(categories);
-
-        Integer categoryId = UserInput.getUserInput();
-        ProductCategory category = productCategoryDao.find(categoryId);
-        List<Product> products = productDao.getBy(category);
-        view.displayProductsList(products);
-    }
-
-    public void listProductsBySupplier() {
-        List<Supplier> suppliers = productSupplierDao.getAll();
-        view.displaySuppliersList(suppliers);
-
-        Integer supplierId = UserInput.getUserInput();
-        Supplier supplier = productSupplierDao.find(supplierId);
-        List<Product> products = productDao.getBy(supplier);
-        view.displayProductsList(products);
-    }
+//    public ModelAndView listProductsByCategory(Request req, Response res) {
+//
+//        Integer id = req.params(":id");
+//        ProductCategory categories = productCategoryDao.find(categoryId);
+//        List<Product> products = productDao.getBy(category);
+//        Map<String, Object> model = new HashMap<>();
+//        model.put("products", products);
+//        model.put("categories", categories);
+//        return new ModelAndView(model, "product/index");
+//    }
+//
+//    public void listProductsBySupplier() {
+//        List<Supplier> suppliers = productSupplierDao.getAll();
+//        view.displaySuppliersList(suppliers);
+//
+//        Integer supplierId = UserInput.getUserInput();
+//        Supplier supplier = productSupplierDao.find(supplierId);
+//        List<Product> products = productDao.getBy(supplier);
+//        view.displayProductsList(products);
+//    }
 }
