@@ -34,8 +34,19 @@
 </div>
 
 <div class="container">
-    <div class="well well-sm">
-        <!--<strong th:text="${category.name}">Category Title</strong>-->
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="dropdown">
+                <form class="form-group" method="post" action="/">
+                    <label for="category">Filter by category:</label>
+                    <select class="form-control" id="category" name="category">
+                        <option th:each="categ: ${categories}" th:text="${categ.name}"></option>
+                        <input type="hidden" name="id" th:value="${categ.id}">
+                    </select>
+                    <button type="submit" class="btn">Filter</button>
+                </form>
+            </div>
+        </div>
     </div>
 
     <div id="products" class="row list-group">
