@@ -40,8 +40,7 @@
                 <form class="form-group" method="get" th:action="@{~/category}">
                     <label for="category">Filter by category:</label>
                     <select class="form-control" id="category" name="category">
-                        <option th:each="categ: ${categories}" th:text="${categ.name}"></option>
-                        <input type="hidden" name="id" th:value="${categ.id}">
+                        <option th:each="categ: ${categories}" th:text="${categ.name}" th:value="${categ.id}"></option>
                     </select>
                     <button type="submit" class="btn">Filter</button>
                 </form>
@@ -52,8 +51,7 @@
                 <form class="form-group" method="get" th:action="@{~/category}">
                     <label for="category">Filter by category:</label>
                     <select class="form-control" id="category" name="category">
-                        <option th:each="categ: ${categories}" th:text="${categ.name}"></option>
-                        <input type="hidden" name="id" th:value="${categ.id}">
+                        <option th:each="categ: ${categories}" th:text="${categ.name}" th:value="${categ.id}"></option>
                     </select>
                     <button type="submit" class="btn">Filter</button>
                 </form>
@@ -83,7 +81,6 @@
     </div>
 
 </div>
-
 <div th:replace="footer :: copy"></div>
 
 </body>
