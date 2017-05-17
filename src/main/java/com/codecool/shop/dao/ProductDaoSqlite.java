@@ -1,5 +1,6 @@
 package com.codecool.shop.dao;
 
+import com.codecool.shop.Application;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -26,8 +27,8 @@ public class ProductDaoSqlite extends BaseDao implements ProductDao {
         ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite();
         ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite();
         try {
-            Connection connection = SqliteJDBCConnector.connection();
-            PreparedStatement statement = connection.prepareStatement("select * from products where id=(?)");
+//            Connection connection = SqliteJDBCConnector.connection();
+            PreparedStatement statement = Application.getApp().getConnection().prepareStatement("select * from products where id=(?)");
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
             product = new Product(
@@ -35,8 +36,8 @@ public class ProductDaoSqlite extends BaseDao implements ProductDao {
                     rs.getFloat("price"),
                     "PLN",
                     rs.getString("description"),
-                    productCategoryDao.find(product.setId(rs.getInt("category_id")));
-                    productSupplierDao.find(product.setId(rs.getInt("supplier_id")))
+                    productCategoryDao.find(rs.getInt("category_id")),
+                    productSupplierDao.find(rs.getInt("supplier_id"))
                 );
         } catch(SQLException e) {
             System.out.println("Connect to DB failed");
@@ -98,20 +99,17 @@ public class ProductDaoSqlite extends BaseDao implements ProductDao {
 
     private List<Product> getProducts(PreparedStatement statement) throws SQLException {
         List<Product> products = new ArrayList<Product>();
-        Supplier supplier = new Supplier();
-        ProductCategory category = new ProductCategory();
-        ProductSupplierDaoSqlite supplierDao = new ProductSupplierDaoSqlite();
-
+        ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite();
+        ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite();
         ResultSet rs = statement.executeQuery();
         while(rs.next()) {
-            supplierDao.find(rs.getInt("supplier_id"));
-            Product product = new Product(
+             Product product = new Product(
                     rs.getString("name"),
                     rs.getFloat("price"),
                     "PLN",
                     rs.getString("description"),
-                    category,
-                    supplier
+                    productCategoryDao.find(rs.getInt("category_id")),
+                    productSupplierDao.find(rs.getInt("supplier_id"))
             );
             product.setId(rs.getInt("id"));
             products.add(product);
