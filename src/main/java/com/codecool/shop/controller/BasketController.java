@@ -32,4 +32,5 @@ public class BasketController {
         model.put("products", products);
         return new ModelAndView(model, "product/basket");
     }
+
 }

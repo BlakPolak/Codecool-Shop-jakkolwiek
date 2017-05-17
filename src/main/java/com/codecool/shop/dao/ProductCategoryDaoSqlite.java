@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductCategoryDaoSqlite implements ProductCategoryDao {
+public class ProductCategoryDaoSqlite extends BaseDao implements ProductCategoryDao {
     @Override
     public void add(ProductCategory category) {
 

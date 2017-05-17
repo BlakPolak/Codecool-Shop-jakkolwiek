@@ -14,10 +14,18 @@ public class Routes {
     ProductController productController = new ProductController();
     BasketController basketController = new BasketController();
     void run() {
+        exception(Exception.class, (e, req, res) -> e.printStackTrace());
         staticFileLocation("/public");
         port(8888);
         get("/", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(productController.listProducts());
+            return new ThymeleafTemplateEngine().render(Application.getApp().getProductController().listProducts());
+        });
+        get("/category", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render(Application.getApp().getProductController().listProductsByCategory(req, res));
+        });
+
+        get("/supplier", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render(productController.listProductsBySupplier(req, res));
         });
 
         post("/add-to-basket/", (Request req, Response res) -> {

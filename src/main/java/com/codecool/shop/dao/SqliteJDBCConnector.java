@@ -1,5 +1,8 @@
 package com.codecool.shop.dao;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -19,24 +22,37 @@ public class SqliteJDBCConnector {
         return connection;
     }
 
-    public static void createTables() throws SQLException {
-        Connection connection = connection();
-        Statement statement = connection.createStatement();
-        statement.execute("CREATE TABLE IF NOT EXISTS products\n" +
-                "(\n" +
-                "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "    name VARCHAR NOT NULL,\n" +
-                "    description TEXT,\n" +
-                "    price DOUBLE DEFAULT 0.00 NOT NULL\n" +
-                ")");
+    public static Connection connectToDb() throws SQLException {
+        System.out.println("Connection to DB...");
+        return DriverManager.getConnection("jdbc:sqlite:src/main/resources/database.db");
+    }
 
-        statement.execute("CREATE TABLE IF NOT EXISTS categories\n" +
-                "(\n" +
-                "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "    name VARCHAR(255) NOT NULL,\n" +
-                "    description TEXT NOT NULL,\n" +
-                "    department VARCHAR(255) NOT NULL\n" +
-                ");");
+    public static void runSql(Connection c, String path) throws SQLException {
+        String s = new String();
+        StringBuffer sb = new StringBuffer();
+        try {
+            FileReader fr = new FileReader(new File(path));
+            BufferedReader br = new BufferedReader(fr);
+            while((s = br.readLine()) != null) {
+                sb.append(s);
+            }
+            br.close();
+            String[] inst = sb.toString().split(";");
+            Statement st = c.createStatement();
+            for(int i = 0; i<inst.length; i++) {
+                if(!inst[i].trim().equals("")) {
+                    st.executeUpdate(inst[i]);
+                    System.out.println(">>"+inst[i]);
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("*** Error : "+e.toString());
+            e.printStackTrace();
+            System.out.println("################################################");
+            System.out.println(sb.toString());
+        }
     }
 
 }

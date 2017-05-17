@@ -11,7 +11,7 @@ import java.util.List;
 
 
 
-public class ProductSupplierDaoSqlite implements ProductSupplierDao {
+public class ProductSupplierDaoSqlite extends BaseDao implements ProductSupplierDao {
 
     @Override
     public void add(Supplier category) {
@@ -24,7 +24,7 @@ public class ProductSupplierDaoSqlite implements ProductSupplierDao {
         try {
             Connection connection = SqliteJDBCConnector.connection();
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select * from categories where id = " + Integer.toString(id));
+            ResultSet rs = statement.executeQuery("select * from suppliers where id = " + Integer.toString(id));
 
             if(rs.next()) {
                 supplier = new Supplier(
@@ -54,7 +54,7 @@ public class ProductSupplierDaoSqlite implements ProductSupplierDao {
         try {
             Connection connection = SqliteJDBCConnector.connection();
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select * from suppliers");
+            ResultSet rs = statement.executeQuery("SELECT DISTINCT * FROM suppliers");
             while(rs.next()) {
                 Supplier supplier = new Supplier(
                         rs.getString("name"),
