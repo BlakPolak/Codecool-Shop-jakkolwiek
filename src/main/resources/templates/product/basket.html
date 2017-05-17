@@ -30,13 +30,14 @@
 <body>
 
 <div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+    <a class="jumbotron text-center" th:href="@{~/}"><h1>Codecool Shop</h1></a>
 </div>
 <div class="menu">
     <a th:href="@{'~/basket/'}"><img src='/img/basket.png' alt="" height="80px" /></a>
 </div>
 
 <div class="container">
+    <a class="navbar-brand" th:href="@{~/}"><div class="glyphicon glyphicon-home"></div></a>
     <div class="well well-sm">
         <!--<strong th:text="${category.name}">Category Title</strong>-->
         <p>Products in basket:</p>
@@ -54,12 +55,6 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <p class="lead" th:text="${prod.getProduct().getPrice()}">100 USD</p>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <form method="post" th:action="@{'~/add-to-basket/'}">
-                                <input type="hidden" name="id" th:value="${prod.getProduct().getId()}" />
-                                <input type="submit" class="btn btn-info" value="Add to basket" />
-                            </form>
                         </div>
                     </div>
                 </div>
