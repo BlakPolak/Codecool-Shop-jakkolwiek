@@ -17,5 +17,13 @@ public class Routes {
         get("/", (Request req, Response res) -> {
             return Application.getApp().getProductController().listProducts(req, res);
         });
+
+        post("/add-to-basket/", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render(basketController.addToCartAction(req,res));
+        });
+
+        get("/basket/", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render(basketController.listProductsInBasket());
+        });
     }
 }
