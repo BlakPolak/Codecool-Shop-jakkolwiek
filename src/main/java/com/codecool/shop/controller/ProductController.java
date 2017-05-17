@@ -16,6 +16,7 @@ public class ProductController {
     private ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite();
 
     public ModelAndView listProducts() {
+        List<ProductCategory> category = productCategoryDao.getAll();
         List<Product> products = productDao.getAll();
         List<ProductCategory> categories = productCategoryDao.getAll();
         List<Supplier> suppliers = productSupplierDao.getAll();
@@ -24,10 +25,6 @@ public class ProductController {
         model.put("categories", categories);
         model.put("suppliers", suppliers);
         return new ModelAndView(model, "product/index");
-    }
-
-    public void listProductsByCategory() {
-
     }
 
     public ModelAndView listProductsBySupplier(Request req, Response res) {
