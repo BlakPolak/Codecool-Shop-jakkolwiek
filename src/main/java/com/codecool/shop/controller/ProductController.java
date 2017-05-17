@@ -1,12 +1,10 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.*;
-import com.codecool.shop.model.Basket;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import spark.Request;
-import spark.Response;
 import java.util.*;
 
 public class ProductController extends BaseController{
@@ -14,7 +12,18 @@ public class ProductController extends BaseController{
     private ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite();
     private ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite();
 
-    public String listProducts(Request req) {
+    private String listProducts(List<Product> products) {
+        List<Supplier> suppliers = productSupplierDao.getAll();
+        List<ProductCategory> categories = productCategoryDao.getAll();
+        String templatePath = "product/index";
+        Map<String, Object> model = new HashMap<>();
+        model.put("products", products);
+        model.put("categories", categories);
+        model.put("suppliers", suppliers);
+        return this.getModel(templatePath, model);
+    }
+
+        public String listProducts(Request req) {
         List<Product> products;
         if (req.queryParams("category") != null) {
             Integer categoryId = Integer.parseInt(req.queryParams("category"));
@@ -27,26 +36,12 @@ public class ProductController extends BaseController{
         } else {
             products = productDao.getAll();
         }
-        List<Supplier> suppliers = productSupplierDao.getAll();
-        List<ProductCategory> categories = productCategoryDao.getAll();
-        String templatePath = "product/index";
-        Map<String, Object> model = new HashMap<>();
-        model.put("products", products);
-        model.put("categories", categories);
-        model.put("suppliers", suppliers);
-        return this.getModel(templatePath, model);
+        return this.listProducts(products);
     }
 
     public String listFoundedProducts(String query) {
-        String templatePath = "/product/index";
         List<Product> products = this.getProductsByQuery(query);
-        List<Supplier> suppliers = productSupplierDao.getAll();
-        List<ProductCategory> categories = productCategoryDao.getAll();
-        Map<String, Object> model = new HashMap<>();
-        model.put("products", products);
-        model.put("categories", categories);
-        model.put("suppliers", suppliers);
-        return this.getModel(templatePath, model);
+        return this.listProducts(products);
     }
 
     private List<Product> getProductsByQuery(String query) {
