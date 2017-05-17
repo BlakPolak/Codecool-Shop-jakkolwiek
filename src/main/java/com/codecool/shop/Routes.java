@@ -21,11 +21,10 @@ public class Routes {
             return new ThymeleafTemplateEngine().render(Application.getApp().getProductController().listProducts());
         });
 
-        get("/category", (req, res) -> {
-            productController.listProductsByCategory(req, res);
-            res.redirect("/");
-            return "";
+        get("/category", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render(Application.getApp().getProductController().listProductsByCategory(req, res));
         });
+
 
 
     }
