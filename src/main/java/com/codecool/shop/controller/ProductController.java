@@ -1,27 +1,31 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.Application;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import spark.ModelAndView;
+import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProductController {
+public class ProductController extends BaseController{
     private ProductDao productDao = new ProductDaoSqlite();
     private ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite();
     private ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite();
 
-    public ModelAndView listProducts() {
+    public String listProducts() {
         List<Product> products = productDao.getAll();
+        String templatePath = "product/index";
         Map<String, Object> model = new HashMap<>();
         model.put("products", products);
-        return new ModelAndView(model, "product/index");
+        return this.getModel(templatePath, model);
     }
+
 
     public void listProductsByCategory() {
         List<ProductCategory> categories = productCategoryDao.getAll();
