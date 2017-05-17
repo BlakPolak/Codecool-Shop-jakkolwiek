@@ -19,11 +19,11 @@ public class Routes {
         });
 
         post("/add-to-basket/", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(basketController.addToCartAction(req,res));
+            return Application.getApp().getBasketController().addToCartAction(req,res);
         });
 
         get("/basket/", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(basketController.listProductsInBasket());
+            return Application.getApp().getBasketController().listProductsInBasket();
         });
     }
 }
