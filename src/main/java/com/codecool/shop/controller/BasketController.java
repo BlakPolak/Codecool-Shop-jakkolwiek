@@ -10,5 +10,4 @@ import java.util.List;
 public class BasketController {
     ProductDao productDao = new ProductDaoSqlite();
     Basket basket = new Basket();
-
 }

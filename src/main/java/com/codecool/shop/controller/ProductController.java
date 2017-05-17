@@ -8,10 +8,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ProductController {
     private ProductDao productDao = new ProductDaoSqlite();
@@ -40,5 +37,19 @@ public class ProductController {
         model.put("categories", categories);
         model.put("suppliers", suppliers);
         return new ModelAndView(model, "product/index");
+     }
+  
+    public ModelAndView listProductsBySupplier(Request req, Response res) {
+        Integer supplierId = Integer.parseInt(req.queryParams("supplier"));
+        List<Supplier> suppliers = productSupplierDao.getAll();
+        Supplier supplier = productSupplierDao.find(supplierId);
+        List<Product> products = productDao.getBy(supplier);
+        List<ProductCategory> categories = productCategoryDao.getAll();
+        Map<String, Object> model = new HashMap<>();
+        model.put("products", products);
+        model.put("categories", categories);
+        model.put("suppliers", suppliers);
+        return new ModelAndView(model, "product/index");
     }
+
 }
