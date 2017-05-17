@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.*;
+import com.codecool.shop.model.Basket;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -14,7 +15,7 @@ public class ProductController {
     private ProductDao productDao = new ProductDaoSqlite();
     private ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite();
     private ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite();
-
+  
     public ModelAndView listProducts() {
         List<ProductCategory> category = productCategoryDao.getAll();
         List<Product> products = productDao.getAll();

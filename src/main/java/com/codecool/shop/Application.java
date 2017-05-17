@@ -31,6 +31,7 @@ public class Application {
 
     public ProductController getProductController() {
         return this.productController;
+
     }
 
     public BasketController getBasketController() {
