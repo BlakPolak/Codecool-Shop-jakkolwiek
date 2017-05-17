@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Codecool" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Codecool Shop</title>
+
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css" />
+</head>
+
+<body>
+
+<div class="jumbotron text-center">
+    <a class="jumbotron text-center" th:href="@{~/}"><h1>Codecool Shop</h1></a>
+</div>
+
+<div class="container">
+    <div class="row">
+        <a class="navbar-brand" th:href="@{~/}"><div class="glyphicon glyphicon-home"></div></a>
+        <div class="col-sm-4">
+            <div class="dropdown">
+                <form class="form-group" method="get" th:action="@{~/category}">
+                    <label for="category">Filter by category:</label>
+                    <select class="form-control" id="category" name="category">
+                        <option th:each="categ: ${categories}" th:text="${categ.name}" th:value="${categ.id}"></option>
+                    </select>
+                    <button type="submit" class="btn">Filter</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="dropdown">
+                <form class="form-group" method="get" th:action="@{~/supplier}">
+                    <label for="supplier">Filter by supplier:</label>
+                    <select class="form-control" id="supplier" name="supplier">
+                        <option th:each="supp,iterStat :${suppliers}" th:text="${supp.name}" th:value="${supp.id}"></option>
+                    </select>
+                    <button type="submit" class="btn">Filter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" role="form" id='event-create-form' th:action="@{'~/create_event'}" method='POST'>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="name">Name: </label>
+            <div class="col-sm-5">
+                <input class="form-control" type='text' id="name" name='event-name' placeholder="Enter a name" required/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="category">Category: </label>
+            <div class="col-sm-5">
+                <input class="form-control" type='text' id="category" name='event-category' list="categories"  required/>
+                <datalist id="categories" name="event-category">
+                    <th:block th:each="category : ${categories}">
+                        <option th:text="${category.getCategoryName()}" th:value="${category.getCategoryName()}">Category</option>
+                    </th:block>
+                </datalist>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="description">Description: </label>
+            <div class="col-sm-5">
+                <textarea class="form-control" type='text' id="description" name='event-description' rows='4' cols='50' placeholder="Enter a new description" required></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="startDate">Date: </label>
+            <div class="col-sm-5">
+                <input class="form-control" type='date' id="startDate" name='event-startDate' placeholder="Enter a new start date" required/>
+            </div>
+        </div>
+    </form>
+    <input type='submit' class="btn btn-primary" form='event-create-form' value='Add' />
+
+
+
+</div>
+<div th:replace="footer :: copy"></div>
+
+</body>
+</html>
