@@ -59,6 +59,7 @@ public class ProductDaoSqlite extends BaseDao implements ProductDao {
         return products;
     }
 
+
     @Override
     public List<Product> getBy(Supplier supplier) {
         List<Product> products = new ArrayList<Product>();
@@ -110,6 +111,20 @@ public class ProductDaoSqlite extends BaseDao implements ProductDao {
             products.add(product);
         }
 
+        return products;
+    }
+
+    @Override
+    public List<Product> getById(int id) {
+        List<Product> products = new ArrayList<Product>();
+
+        try {
+            PreparedStatement statement = this.getConnection().
+                    prepareStatement("SELECT * FROM products WHERE id = id");
+            products = this.getProducts(statement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return products;
     }
 }
