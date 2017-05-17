@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BasketController {
+public class BasketController extends  BaseController{
     private ProductDao productDao = new ProductDaoSqlite();
     private Basket basket = new Basket();
 
@@ -25,12 +25,14 @@ public class BasketController {
         return "";
     }
 
-    public ModelAndView listProductsInBasket() {
+    public String listProductsInBasket() {
         List<BasketItem> products = basket.getItems();
         System.out.println(products.get(0).getProduct());
         Map<String, Object> model = new HashMap<>();
         model.put("products", products);
-        return new ModelAndView(model, "product/basket");
+        String templatePath = "product/basket";
+        return this.getModel(templatePath, model);
+
     }
 
 }
