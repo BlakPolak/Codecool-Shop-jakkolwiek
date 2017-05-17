@@ -15,15 +15,20 @@ public class Routes {
         port(8888);
 
         get("/", (Request req, Response res) -> {
-            return Application.getApp().getProductController().listProducts(req, res);
+            return Application.getApp().getProductController().listProducts(req);
         });
 
         post("/add-to-basket/", (Request req, Response res) -> {
-            return Application.getApp().getBasketController().addToCartAction(req,res);
+            return Application.getApp().getBasketController().addToCartAction(req, res);
         });
 
         get("/basket/", (Request req, Response res) -> {
             return Application.getApp().getBasketController().listProductsInBasket();
+        });
+
+        get("/search/", (Request req, Response res) -> {
+            String query = req.queryParams("query");
+            return Application.getApp().getProductController().listFoundedProducts(query);
         });
     }
 }
