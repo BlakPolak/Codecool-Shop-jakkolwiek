@@ -60,3 +60,14 @@
 {
     margin: 0 0 11px;
 }
+
+.basket {
+    float: right;
+    margin-right: 5px;
+    margin-top: 10px;
+    opacity:0.5;
+}
+
+.basket:hover {
+    opacity:1;
+}
