@@ -54,7 +54,7 @@ public class ProductSupplierDaoSqlite implements ProductSupplierDao {
         try {
             Connection connection = SqliteJDBCConnector.connection();
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select * from suppliers");
+            ResultSet rs = statement.executeQuery("SELECT DISTINCT * FROM suppliers");
             while(rs.next()) {
                 Supplier supplier = new Supplier(
                         rs.getString("name"),
