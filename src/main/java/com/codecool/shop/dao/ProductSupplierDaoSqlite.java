@@ -24,7 +24,7 @@ public class ProductSupplierDaoSqlite extends BaseDao implements ProductSupplier
         try {
             Connection connection = SqliteJDBCConnector.connection();
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select * from categories where id = " + Integer.toString(id));
+            ResultSet rs = statement.executeQuery("select * from suppliers where id = " + Integer.toString(id));
 
             if(rs.next()) {
                 supplier = new Supplier(
