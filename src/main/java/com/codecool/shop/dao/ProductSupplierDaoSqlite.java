@@ -54,7 +54,7 @@ public class ProductSupplierDaoSqlite extends BaseDao implements ProductSupplier
         try {
             Connection connection = SqliteJDBCConnector.connection();
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select * from suppliers");
+            ResultSet rs = statement.executeQuery("SELECT DISTINCT * FROM suppliers");
             while(rs.next()) {
                 Supplier supplier = new Supplier(
                         rs.getString("name"),
