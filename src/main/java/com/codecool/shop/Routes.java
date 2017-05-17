@@ -16,7 +16,10 @@ public class Routes {
         staticFileLocation("/public");
         port(8888);
         get("/", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(productController.listProducts());
+//            return new ThymeleafTemplateEngine().render(productController.listProducts());
+//            ProductController pro = Application.getApp().getProductController();
+//            System.out.println("");
+            return new ThymeleafTemplateEngine().render(Application.getApp().getProductController().listProducts());
         });
     }
 
