@@ -12,6 +12,7 @@ public class BasketController {
     Basket basket = new Basket();
 
     public void addToCartAction() {
+
 //        List<Product> products = this.productDao.getAll();
 //        this.productView.displayProductsList(products);
 //        System.out.print("Select product by giving id: ");
@@ -19,5 +20,6 @@ public class BasketController {
 //        Product product = productDao.find(productId);
 //        this.basket.add(product, 1);
 //        this.basketView.displayBasketItems(this.basket.getItems());
+
     }
 }
