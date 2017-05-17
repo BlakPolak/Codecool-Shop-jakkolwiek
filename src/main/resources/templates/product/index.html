@@ -30,12 +30,13 @@
 <body>
 
 <div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+    <a class="jumbotron text-center" th:href="@{~/}"><h1>Codecool Shop</h1></a>
 </div>
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-6">
+        <a class="navbar-brand" th:href="@{~/}"><div class="glyphicon glyphicon-home"></div></a>
+        <div class="col-sm-4">
             <div class="dropdown">
                 <!--<form class="form-group" method="get" th:action="@{~/category}">-->
                 <form class="form-group" method="get">
@@ -49,7 +50,7 @@
                 </form>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <div class="dropdown">
                 <form class="form-group" method="get" th:action="@{~/supplier}">
                 <!--<form class="form-group" method="get">-->
