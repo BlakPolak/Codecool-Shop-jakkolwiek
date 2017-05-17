@@ -14,7 +14,7 @@ public class ProductController extends BaseController{
     private ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite();
     private ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite();
 
-    public String listProducts(Request req, Response res) {
+    public String listProducts(Request req) {
         List<Product> products;
         if (req.queryParams("category") != null) {
             Integer categoryId = Integer.parseInt(req.queryParams("category"));
@@ -35,5 +35,28 @@ public class ProductController extends BaseController{
         model.put("categories", categories);
         model.put("suppliers", suppliers);
         return this.getModel(templatePath, model);
+    }
+
+    public String listFoundedProducts(String query) {
+        String templatePath = "/product/index";
+        List<Product> products = this.getProductsByQuery(query);
+        List<Supplier> suppliers = productSupplierDao.getAll();
+        List<ProductCategory> categories = productCategoryDao.getAll();
+        Map<String, Object> model = new HashMap<>();
+        model.put("products", products);
+        model.put("categories", categories);
+        model.put("suppliers", suppliers);
+        return this.getModel(templatePath, model);
+    }
+
+    private List<Product> getProductsByQuery(String query) {
+        List<Product> products = productDao.getAll();
+        List<Product> outputList = new ArrayList<>();
+        for (Product prod : products) {
+            if (prod.getName().toLowerCase().contains(query.toLowerCase())) {
+                outputList.add(prod);
+            }
+        }
+        return outputList;
     }
 }
