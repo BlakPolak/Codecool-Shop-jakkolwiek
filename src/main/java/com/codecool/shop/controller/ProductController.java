@@ -23,27 +23,25 @@ public class ProductController {
         List<Product> products = productDao.getAll();
         Map<String, Object> model = new HashMap<>();
         model.put("products", products);
-        model.put("category", category);
+        model.put("categories", category);
         return new ModelAndView(model, "product/index");
     }
 
     public ModelAndView listProductsByCategory(Request req, Response res) {
-
-        Integer id = req.params(":id");
-        ProductCategory categories = productCategoryDao.find(categoryId);
+        String id = req.queryParams("id");
+        ProductCategory category= productCategoryDao.find(Integer.parseInt(id));
         List<Product> products = productDao.getBy(category);
         Map<String, Object> model = new HashMap<>();
         model.put("products", products);
-        model.put("categories", categories);
         return new ModelAndView(model, "product/index");
     }
-
-    public void listProductsBySupplier() {
-        List<Supplier> suppliers = productSupplierDao.getAll();
-
+//
+//    public void listProductsBySupplier() {
+//        List<Supplier> suppliers = productSupplierDao.getAll();
+//
 //        Integer supplierId = UserInput.getUserInput();
 //        Supplier supplier = productSupplierDao.find(supplierId);
 //        List<Product> products = productDao.getBy(supplier);
 //        view.displayProductsList(products);
-    }
+//    }
 }
