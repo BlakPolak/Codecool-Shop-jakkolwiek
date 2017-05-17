@@ -27,6 +27,7 @@ public class Application {
 
     }
 
+    public Application getApplication() {return app;}
     public Basket getBasket() {
         return basket;
     }
