@@ -30,19 +30,16 @@
 <body>
 
 <div class="jumbotron text-center">
-    <a class="jumbotron text-center" th:href="@{~/}"><h1>Codecool Shop</h1></a>
-</div>
-<div class="menu">
-    <a th:href="@{'~/basket/'}"><img src='/img/basket.png' alt="" height="80px" /></a>
+    <h1>Your basket</h1>
 </div>
 
 <div class="container">
-    <a class="navbar-brand" th:href="@{~/}"><div class="glyphicon glyphicon-home"></div></a>
-    <div class="well well-sm">
-        <!--<strong th:text="${category.name}">Category Title</strong>-->
-        <p>Products in basket:</p>
+    <div class="row">
+        <a class="navbar-brand" th:href="@{~/}"><div class="glyphicon glyphicon-home"></div></a>
+        <div class="basket">
+            <a th:href="@{'~/basket/'}"><img src='/img/basket.png' alt="" height="25px" /></a>
+        </div>
     </div>
-
     <div id="products" class="row list-group">
 
         <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
