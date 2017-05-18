@@ -1,15 +1,14 @@
 package com.codecool.shop.dao;
 
 import com.codecool.shop.model.ProductCategory;
-
+import java.sql.SQLException;
 import java.util.List;
 
 public interface ProductCategoryDao {
 
     void add(ProductCategory category);
-    ProductCategory find(int id);
-    void remove(int id);
-
-    List<ProductCategory> getAll();
+    ProductCategory find(Integer id) throws SQLException;
+    void remove(Integer id);
+    List<ProductCategory> getAll() throws SQLException;
 
 }
