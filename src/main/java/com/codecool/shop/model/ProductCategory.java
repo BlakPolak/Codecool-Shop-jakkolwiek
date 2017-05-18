@@ -6,14 +6,19 @@ public class ProductCategory extends BaseModel {
     private String department;
     private ArrayList<Product> products;
 
-    public ProductCategory(String name, String department, String description) {
+    public ProductCategory(String name, String description, String department) {
         super(name);
+        this.description = description;
         this.department = department;
         this.products = new ArrayList<>();
     }
 
     public String getDepartment() {
         return department;
+    }
+
+    public String getDescription() {
+        return super.getDescription();
     }
 
     public void setDepartment(String department) {
