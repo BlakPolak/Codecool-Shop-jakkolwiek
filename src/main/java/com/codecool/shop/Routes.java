@@ -7,7 +7,7 @@ import static spark.Spark.port;
 import static spark.Spark.staticFileLocation;
 import static spark.Spark.*;
 
-public class Routes {
+class Routes {
 
     void run() {
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
