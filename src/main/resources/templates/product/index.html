@@ -40,11 +40,6 @@
         <div class="basket">
             <a th:href="@{'~/basket/'}"><img src='/img/basket.png' alt="" height="25px" /></a>
         </div>
-        <form th:method="get" th:action="@{~/search/}" th:class="form-horizontal">
-                <label th:for="search">Find product</label>
-                <input th:type="text" th:name="query" th:id="search" pattern=".{3,}" title="3 characters minimum" required="required" />
-                <input th:class="button" th:type="submit"/>
-        </form>
         <div class="col-sm-4">
             <div class="dropdown">
                 <form class="form-group" method="get" th:action="@{~/}">
@@ -67,6 +62,13 @@
                 </form>
             </div>
         </div>
+    </div>
+    <div class="find">
+        <form th:method="get" th:action="@{~/search/}" th:class="form-horizontal">
+            <label th:for="search">Find product</label>
+            <input th:type="text" th:name="query" th:id="search" pattern=".{3,}" title="3 characters minimum" required="required" />
+            <input th:class="button" th:type="submit"/>
+        </form>
     </div>
 
     <div id="products" class="row list-group">
