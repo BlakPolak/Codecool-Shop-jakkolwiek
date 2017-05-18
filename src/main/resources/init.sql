@@ -8,8 +8,9 @@ CREATE TABLE suppliers
     name TEXT,
     description TEXT
 );
-INSERT INTO `suppliers` (id,name,description) VALUES (1,'Piekarnia Domowa','dobre bułeczki'),
- (2,'Media markt','niemiecki koncern');
+INSERT INTO `suppliers` (id,name,description) VALUES (2,'Media markt','niemiecki koncern'),
+ (3,'Samsung','sklep Samsung'),
+ (4,'Dell','serwis laptopów');
 CREATE TABLE "products"
 (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,9 +20,12 @@ CREATE TABLE "products"
     category_id INT, supplier_id INTEGER NULL,
     CONSTRAINT products_categories_id_fk FOREIGN KEY (category_id) REFERENCES categories (id)
 );
-INSERT INTO `products` (id,name,description,price,category_id,supplier_id) VALUES (1,'chleb','dobry chlebek',23.0,1,1),
- (2,'bułka','średna buła',2.0,1,1),
- (3,'smartfon','tani smartfon',345.0,2,2);
+INSERT INTO `products` (id,name,description,price,category_id,supplier_id) VALUES (3,'smartfon','tani smartfon',345.0,1,2),
+ (10,'laptop','laptop Dell',3000.0,2,4),
+ (11,'telewizor','Samsung 4K',5000.0,3,3),
+ (13,'smartfon','drogi smartfon',800.0,1,2),
+ (14,'telewizor ','mały telewizor',7000.0,3,3),
+ (15,'laptop','stary laptop',300.0,2,4);
 CREATE TABLE categories
 (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -29,7 +33,8 @@ CREATE TABLE categories
     description TEXT NOT NULL,
     department VARCHAR(255) NOT NULL
 );
-INSERT INTO `categories` (id,name,description,department) VALUES (1,'jedzenie','kategoria jedzeniowa','departament jedzenia'),
- (2,'elektronika','kategoria elektronika','departament elektroniki');
+INSERT INTO `categories` (id,name,description,department) VALUES (1,'smartfony','kategoria smartfony','smartfony'),
+ (2,'laptopy','kategoria laptopy','laptopy'),
+ (3,'telewizory','kategoria telewizory','telewizory');
 CREATE UNIQUE INDEX suppliers_id_uindex ON suppliers (id);
 COMMIT;
