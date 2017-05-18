@@ -21,7 +21,15 @@ public class BasketController extends  BaseController{
         return "";
     }
 
-    public String listProductsInBasket() {
+    public String removeFromCartAction(Request req, Response res) {
+        int id = Integer.parseInt(req.queryParams("id"));
+        BasketItem item = basket.getBasketItemById(id);
+        basket.remove(item, 1);
+        res.redirect("/basket/");
+        return "";
+    }
+
+    public String listProductsInCart() {
         List<BasketItem> products = basket.getItems();
         Map<String, Object> model = new HashMap<>();
         model.put("products", products);
