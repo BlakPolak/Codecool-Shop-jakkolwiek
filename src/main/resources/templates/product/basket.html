@@ -35,7 +35,9 @@
 
 <div class="container">
     <div class="row">
-        <a class="navbar-brand" th:href="@{~/}"><div class="glyphicon glyphicon-home"></div></a>
+        <div class="home">
+            <a class="navbar-brand" th:href="@{~/}"><div class="glyphicon glyphicon-home"></div></a>
+        </div>
         <div class="basket">
             <a th:href="@{'~/basket/'}"><img src='/img/basket.png' alt="" height="25px" /></a>
         </div>
@@ -55,7 +57,7 @@
                             <p class="lead" th:text="'Quantity: ' + ${prod.getQuantity()}"></p>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <form method="post" th:action="@{'~/remove-from-basket/'}">
+                            <form method="post" th:action="@{'~/basket/remove/'}">
                                 <input type="hidden" name="id" th:value="${prod.getId()}" />
                                 <input type="submit" class="btn btn-info" value="Remove" />
                             </form>
