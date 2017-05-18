@@ -34,16 +34,16 @@
 </div>
 <div class="container">
     <div class="row">
+        <div class="home">
         <a class="navbar-brand" th:href="@{~/}"><div class="glyphicon glyphicon-home"></div></a>
+        </div>
         <div class="basket">
             <a th:href="@{'~/basket/'}"><img src='/img/basket.png' alt="" height="25px" /></a>
         </div>
         <form th:method="get" th:action="@{~/search/}" th:class="form-horizontal">
-            <div th:class="form-group">
                 <label th:for="search">Find product</label>
                 <input th:type="text" th:name="query" th:id="search" pattern=".{3,}" title="3 characters minimum" required="required" />
                 <input th:class="button" th:type="submit"/>
-            </div>
         </form>
         <div class="col-sm-4">
             <div class="dropdown">
@@ -82,7 +82,7 @@
                                 <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                             </div>
                             <div class="col-xs-12 col-md-6">
-                                <form method="post" th:action="@{'~/add-to-basket/'}">
+                                <form method="post" th:action="@{'~/basket/add/'}">
                                     <input type="hidden" name="id" th:value="${prod.getId()}" />
                                     <input type="submit" class="btn btn-info" value="Add to basket" />
                                 </form>
