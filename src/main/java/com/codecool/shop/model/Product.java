@@ -17,6 +17,9 @@ public class Product extends BaseModel {
         this.setProductCategory(productCategory);
     }
 
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
+    }
     public float getDefaultPrice() {
         return defaultPrice;
     }
@@ -44,11 +47,6 @@ public class Product extends BaseModel {
 
     public ProductCategory getProductCategory() {
         return productCategory;
-    }
-
-    public void setProductCategory(ProductCategory productCategory) {
-        this.productCategory = productCategory;
-        this.productCategory.addProduct(this);
     }
 
     public Supplier getSupplier() {
