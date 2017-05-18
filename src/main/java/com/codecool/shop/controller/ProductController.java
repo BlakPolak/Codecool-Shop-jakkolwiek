@@ -5,6 +5,8 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import spark.Request;
+import spark.Response;
+
 import java.util.*;
 
 public class ProductController extends BaseController{
@@ -53,5 +55,13 @@ public class ProductController extends BaseController{
             }
         }
         return outputList;
+    }
+
+    public String addProductForm(Request req, Response res) {
+        Map<String, Object> model = new HashMap<>();
+        List<ProductCategory> categories = productCategoryDao.getAll();
+        model.put("categories", categories);
+        String templatePath = "product/add_product";
+        return this.getModel(templatePath, model);
     }
 }
