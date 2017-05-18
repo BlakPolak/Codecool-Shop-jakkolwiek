@@ -34,5 +34,9 @@ public class Routes {
         get("/add_product_form/", (Request req, Response res) -> {
             return Application.getApp().getProductController().addProductForm(req, res);
         });
+
+        post("/add_product/", (Request req, Response res) -> {
+            return Application.getApp().getProductController().addProduct(req, res);
+        });
     }
 }
