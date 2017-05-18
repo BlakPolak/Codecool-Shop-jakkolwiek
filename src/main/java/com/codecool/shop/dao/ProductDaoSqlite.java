@@ -10,35 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class ProductDaoSqlite extends BaseDao implements ProductDao {
-    @Override
-    public void add(Product product) {
-
-    }
-
-    @Override
-    public Product find(Integer id) throws SQLException {
-        Product product;
-        PreparedStatement statement = getConnection().prepareStatement("select * from products where id=(?)");
-        statement.setInt(1, id);
-        ResultSet rs = statement.executeQuery();
-        product = new Product(
-                rs.getString("name"),
-                rs.getFloat("price"),
-                "PLN",
-                rs.getString("description"),
-                Application.getApp().getProductController().getProductCategoryDao().find(rs.getInt("category_id")),
-                Application.getApp().getProductController().getProductSupplierDao().find(rs.getInt("supplier_id"))
-            );
-        product.setId(id);
-        return product;
-    }
-
-    @Override
-    public void remove(Integer id) {
-
-    }
 
     @Override
     public List<Product> getAll() throws SQLException {
@@ -48,7 +20,6 @@ public class ProductDaoSqlite extends BaseDao implements ProductDao {
         return products;
     }
 
-
     @Override
     public List<Product> getBy(Supplier supplier) throws SQLException {
         List<Product> products;
@@ -57,6 +28,13 @@ public class ProductDaoSqlite extends BaseDao implements ProductDao {
         statement.setInt(1, supplier.getId());
         products = this.getProducts(statement);
         return products;
+    }
+
+    @Override
+    public Product getBy(Integer id) throws SQLException {
+        PreparedStatement statement = getConnection().prepareStatement("select * from products where id=?");
+        statement.setInt(1, id);
+        return this.getProducts(statement).get(0);
     }
 
     @Override
@@ -70,24 +48,19 @@ public class ProductDaoSqlite extends BaseDao implements ProductDao {
     }
 
     private List<Product> getProducts(PreparedStatement statement) throws SQLException {
-        List<Product> products = new ArrayList<Product>();
-        ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite();
-        ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite();
+        List<Product> products = new ArrayList<>();
         ResultSet rs = statement.executeQuery();
         while(rs.next()) {
-             Product product = new Product(
+            products.add(new Product(
+                    rs.getInt("id"),
                     rs.getString("name"),
                     rs.getFloat("price"),
                     "PLN",
                     rs.getString("description"),
-                    productCategoryDao.find(rs.getInt("category_id")),
-                    productSupplierDao.find(rs.getInt("supplier_id"))
-            );
-            product.setId(rs.getInt("id"));
-            products.add(product);
+                    Application.getApp().getProductController().getProductCategoryDao().getBy(rs.getInt("category_id")),
+                    Application.getApp().getProductController().getProductSupplierDao().getBy(rs.getInt("supplier_id"))
+            ));
         }
-
         return products;
     }
-
 }
