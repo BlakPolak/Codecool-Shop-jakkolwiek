@@ -24,7 +24,8 @@ public class BasketController extends  BaseController{
     public String removeFromCartAction(Request req, Response res) {
         int id = Integer.parseInt(req.queryParams("id"));
         BasketItem item = basket.getBasketItemById(id);
-        basket.remove(item, 1);
+        if(item.getQuantity()>1) item.setQuantity(item.getQuantity()-1);
+        else basket.remove(item);
         res.redirect("/basket/");
         return "";
     }
