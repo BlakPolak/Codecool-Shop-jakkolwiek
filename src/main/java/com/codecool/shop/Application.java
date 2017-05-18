@@ -5,8 +5,6 @@ import com.codecool.shop.controller.BasketController;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.SqliteJDBCConnector;
 import com.codecool.shop.exception.DbCreateStructuresException;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -63,7 +61,7 @@ public class Application {
                     stop();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
-                    System.exit(1);
+                    stop();
                 }
             }
          }
