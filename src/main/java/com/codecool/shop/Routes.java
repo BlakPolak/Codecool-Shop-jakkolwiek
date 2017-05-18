@@ -22,8 +22,12 @@ public class Routes {
             return Application.getApp().getBasketController().addToCartAction(req, res);
         });
 
+        post("/remove-from-basket/", (Request req, Response res) -> {
+            return Application.getApp().getBasketController().removeFromCartAction(req, res);
+        });
+
         get("/basket/", (Request req, Response res) -> {
-            return Application.getApp().getBasketController().listProductsInBasket();
+            return Application.getApp().getBasketController().listProductsInCart();
         });
 
         get("/search/", (Request req, Response res) -> {
