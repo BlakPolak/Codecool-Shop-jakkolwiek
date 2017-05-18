@@ -76,3 +76,11 @@
     float: right;
     margin-right: 5px;
 }
+
+.find {
+    text-align: right;
+    margin-right: 5px;
+    margin-top: 0;
+    margin-bottom: 40px;
+}
+
