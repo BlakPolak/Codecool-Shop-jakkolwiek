@@ -3,7 +3,6 @@ package com.codecool.shop.controller;
 
 import spark.ModelAndView;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
-
 import java.util.Map;
 
 abstract class BaseController {

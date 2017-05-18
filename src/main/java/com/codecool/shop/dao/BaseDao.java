@@ -5,7 +5,7 @@ import java.sql.Connection;
 
 abstract class BaseDao {
 
-    public Connection getConnection() {
+    Connection getConnection() {
         return Application.getApp().getConnection();
     }
 }
