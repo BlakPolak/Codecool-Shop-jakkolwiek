@@ -14,7 +14,7 @@ import java.util.List;
 public class ProductSupplierDaoSqlite extends BaseDao implements ProductSupplierDao {
 
     @Override
-    public void add(Supplier category) {
+    public void add(Supplier supplier) {
 
     }
 
