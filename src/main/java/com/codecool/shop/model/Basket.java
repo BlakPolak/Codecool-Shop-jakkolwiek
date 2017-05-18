@@ -17,9 +17,16 @@ public class Basket {
 
         if(!productExists) {
             BasketItem item = new BasketItem(product, quantity);
+            item.setId(product.getId());
             this.getItems().add(item);
         }
     }
+
+    public void remove(BasketItem item, Integer quantity) {
+        item.setQuantity(quantity);
+        items.remove(item);
+    }
+
 
     public List<BasketItem> getItems() {
         return items;
@@ -35,5 +42,15 @@ public class Basket {
             count += item.getQuantity();
         }
         return count;
+    }
+
+    public BasketItem getBasketItemById(Integer id) {
+        for(BasketItem basketItem : this.getItems()) {
+            if(basketItem.getId() == id) {
+                basketItem.setId(id);
+                return basketItem;
+            }
+        }
+        return null;
     }
 }
