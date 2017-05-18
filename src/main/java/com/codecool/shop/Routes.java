@@ -31,8 +31,7 @@ public class Routes {
         });
 
         get("/search/", (Request req, Response res) -> {
-            String query = req.queryParams("query");
-            return Application.getApp().getProductController().listFoundedProducts(query);
+            return Application.getApp().getProductController().listFoundedProducts(req);
         });
     }
 }
