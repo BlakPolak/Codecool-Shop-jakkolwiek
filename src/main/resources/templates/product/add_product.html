@@ -37,17 +37,29 @@
     <div class="row">
         <a class="navbar-brand" th:href="@{~/}"><div class="glyphicon glyphicon-home"></div></a>
     </div>
-    <form class="form-horizontal" role="form" id='event-create-form' th:action="@{'~/create_event'}" method='POST'>
+    <form class="form-horizontal" role="form" id='add_product' th:action="@{'~/add_product'}" method='POST'>
         <div class="form-group">
             <label class="col-sm-3 control-label" for="name">Name: </label>
             <div class="col-sm-5">
-                <input class="form-control" type='text' id="name" name='event-name' placeholder="Enter a name" th:required="required"/>
+                <input class="form-control" type='text' id="name" name='product_name' placeholder="Enter name" th:required="required"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="description">Product description: </label>
+            <div class="col-sm-5">
+                <textarea class="form-control" type='text' id="description" name='product_description' rows='4' cols='50' placeholder="Enter description" th:required="required"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="price">Price: </label>
+            <div class="col-sm-5">
+                <input class="form-control" type='number' id="price" name='product_price' placeholder="Enter price" th:required="required"/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label" for="categoryName">Category name: </label>
             <div class="col-sm-5">
-                <input class="form-control" type='text' id="categoryName" name='categoryName' list="categories" th:required="required"/>
+                <input class="form-control" type='text' id="categoryName" name='category_name' list="categories" th:required="required"/>
                 <datalist id="categories" name="category_name">
                     <th:block th:each="category : ${categories}">
                         <option th:text="${category.name}" th:value="${category.name}">Category</option>
@@ -58,7 +70,7 @@
         <div class="form-group">
             <label class="col-sm-3 control-label" for="categoryDescription">Category description: </label>
             <div class="col-sm-5">
-                <input class="form-control" type='text' id="categoryDescription" name='categoryDescription' list="descriptions" th:required="required"/>
+                <input class="form-control" type='text' id="categoryDescription" name='category_description' list="descriptions" th:required="required"/>
                 <datalist id="descriptions" name="category_description">
                     <th:block th:each="category : ${categories}">
                         <option th:text="${category.description}" th:value="${category.description}">Descrtiption</option>
@@ -69,7 +81,7 @@
         <div class="form-group">
             <label class="col-sm-3 control-label" for="categoryDepartment">Category department: </label>
             <div class="col-sm-5">
-                <input class="form-control" type='text' id="categoryDepartment" name='categoryDepartment' list="departments" th:required="required"/>
+                <input class="form-control" type='text' id="categoryDepartment" name='category_department' list="departments" th:required="required"/>
                 <datalist id="departments" name="category_department">
                     <th:block th:each="category : ${categories}">
                         <option th:text="${category.department}" th:value="${category.department}">Department</option>
@@ -78,19 +90,29 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label" for="description">Description: </label>
+            <label class="col-sm-3 control-label" for="supplierName">Supplier name: </label>
             <div class="col-sm-5">
-                <textarea class="form-control" type='text' id="description" name='event-description' rows='4' cols='50' placeholder="Enter a new description" th:required="required"></textarea>
+                <input class="form-control" type='text' id="supplierName" name='supplier_name' list="suppliersName" th:required="required"/>
+                <datalist id="suppliersName" name="supplier_name">
+                    <th:block th:each="supplier : ${suppliers}">
+                        <option th:text="${supplier.name}" th:value="${supplier.name}">Supplier Name</option>
+                    </th:block>
+                </datalist>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label" for="startDate">Date: </label>
+            <label class="col-sm-3 control-label" for="supplierDescription">Supplier description: </label>
             <div class="col-sm-5">
-                <input class="form-control" type='date' id="startDate" name='event-startDate' placeholder="Enter a new start date" th:required="required"/>
+                <input class="form-control" type='text' id="supplierDescription" name='supplier_description' list="suppliersDescriptions" th:required="required"/>
+                <datalist id="suppliersDescriptions" name="supplier_description">
+                    <th:block th:each="supplier : ${suppliers}">
+                        <option th:text="${supplier.description}" th:value="${supplier.description}">Description</option>
+                    </th:block>
+                </datalist>
             </div>
         </div>
     </form>
-    <input type='submit' class="btn btn-primary" form='event-create-form' value='Add' />
+    <input type='submit' class="btn btn-primary" form='add_product' value='Add' />
 
 
 
