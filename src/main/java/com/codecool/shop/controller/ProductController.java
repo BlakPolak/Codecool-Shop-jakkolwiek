@@ -5,6 +5,8 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import spark.Request;
+
+import java.sql.SQLException;
 import java.util.*;
 
 public class ProductController extends BaseController{
@@ -12,7 +14,19 @@ public class ProductController extends BaseController{
     private ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite();
     private ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite();
 
-    private String listProducts(List<Product> products) {
+    public ProductDao getProductDao() {
+        return productDao;
+    }
+
+    public ProductCategoryDao getProductCategoryDao() {
+        return productCategoryDao;
+    }
+
+    public ProductSupplierDao getProductSupplierDao() {
+        return productSupplierDao;
+    }
+
+    private String listProducts(List<Product> products) throws SQLException{
         List<Supplier> suppliers = productSupplierDao.getAll();
         List<ProductCategory> categories = productCategoryDao.getAll();
         String templatePath = "product/index";
@@ -23,7 +37,7 @@ public class ProductController extends BaseController{
         return this.getModel(templatePath, model);
     }
 
-        public String listProducts(Request req) {
+    public String listProducts(Request req) throws SQLException {
         List<Product> products;
         if (req.queryParams("category") != null) {
             Integer categoryId = Integer.parseInt(req.queryParams("category"));
@@ -39,12 +53,12 @@ public class ProductController extends BaseController{
         return this.listProducts(products);
     }
 
-    public String listFoundedProducts(String query) {
+    public String listFoundedProducts(String query) throws SQLException{
         List<Product> products = this.getProductsByQuery(query);
         return this.listProducts(products);
     }
 
-    private List<Product> getProductsByQuery(String query) {
+    private List<Product> getProductsByQuery(String query) throws SQLException{
         List<Product> products = productDao.getAll();
         List<Product> outputList = new ArrayList<>();
         for (Product prod : products) {
