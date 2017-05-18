@@ -1,7 +1,6 @@
 package com.codecool.shop.dao;
 
 import com.codecool.shop.exception.DbCreateStructuresException;
-
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,8 +15,8 @@ public class SqliteJDBCConnector {
     }
 
     public static void runSql(Connection c, String path) throws DbCreateStructuresException, IOException {
-        String s = new String();
-        StringBuffer sb = new StringBuffer();
+        String s;
+        StringBuilder sb = new StringBuilder();
         try {
             FileReader fr = new FileReader(new File(path));
             BufferedReader br = new BufferedReader(fr);
