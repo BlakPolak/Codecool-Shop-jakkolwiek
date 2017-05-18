@@ -18,11 +18,11 @@ public class Routes {
             return Application.getApp().getProductController().listProducts(req);
         });
 
-        post("/add-to-basket/", (Request req, Response res) -> {
+        post("/basket/add/", (Request req, Response res) -> {
             return Application.getApp().getBasketController().addToCartAction(req, res);
         });
 
-        post("/remove-from-basket/", (Request req, Response res) -> {
+        post("/basket/remove/", (Request req, Response res) -> {
             return Application.getApp().getBasketController().removeFromCartAction(req, res);
         });
 
