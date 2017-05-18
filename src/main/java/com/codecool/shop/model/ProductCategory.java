@@ -4,8 +4,12 @@ package com.codecool.shop.model;
 public class ProductCategory extends BaseModel {
     private String department;
 
-    public ProductCategory(String name, String department, String description) {
-        super(name, description);
+    public ProductCategory(Integer id, String name, String description, String department) {
+        super(id, name, description);
+        setDepartment(department);
+    }
+
+    private void setDepartment(String department) {
         this.department = department;
     }
 
