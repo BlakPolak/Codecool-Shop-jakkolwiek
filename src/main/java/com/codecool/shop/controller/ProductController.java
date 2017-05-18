@@ -5,7 +5,6 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import spark.Request;
-
 import java.sql.SQLException;
 import java.util.*;
 
@@ -13,10 +12,6 @@ public class ProductController extends BaseController{
     private ProductDao productDao = new ProductDaoSqlite();
     private ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite();
     private ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite();
-
-    public ProductDao getProductDao() {
-        return productDao;
-    }
 
     public ProductCategoryDao getProductCategoryDao() {
         return productCategoryDao;
@@ -41,11 +36,11 @@ public class ProductController extends BaseController{
         List<Product> products;
         if (req.queryParams("category") != null) {
             Integer categoryId = Integer.parseInt(req.queryParams("category"));
-            ProductCategory category = productCategoryDao.find(categoryId);
+            ProductCategory category = productCategoryDao.getBy(categoryId);
             products = productDao.getBy(category);
         } else if (req.queryParams("supplier") != null) {
             Integer supplierId = Integer.parseInt(req.queryParams("supplier"));
-            Supplier supplier = productSupplierDao.find(supplierId);
+            Supplier supplier = productSupplierDao.getBy(supplierId);
             products = productDao.getBy(supplier);
         } else {
             products = productDao.getAll();
