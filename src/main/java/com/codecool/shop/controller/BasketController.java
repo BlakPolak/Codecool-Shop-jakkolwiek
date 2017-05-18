@@ -17,7 +17,7 @@ public class BasketController extends  BaseController{
 
     public String addToCartAction(Request req, Response res) throws SQLException{
         Integer id = Integer.parseInt(req.queryParams("id"));
-        Product product = productDao.find(id);
+        Product product = productDao.getBy(id);
         basket.add(product, 1);
         res.redirect("/basket/");
         return "";
