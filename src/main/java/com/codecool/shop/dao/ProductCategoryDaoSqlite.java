@@ -1,51 +1,42 @@
 package com.codecool.shop.dao;
 
 import com.codecool.shop.model.ProductCategory;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoryDaoSqlite extends BaseDao implements ProductCategoryDao {
-    @Override
-    public void add(ProductCategory category) {
-
-    }
 
     @Override
-    public ProductCategory find(Integer id) throws SQLException {
-        ProductCategory category = null;
-        Statement statement = getConnection().createStatement();
-        ResultSet rs = statement.executeQuery("select * from categories where id = " + Integer.toString(id));
+    public ProductCategory getBy(Integer id) throws SQLException {
+        ProductCategory productCategory = null;
+        PreparedStatement statement = getConnection().prepareStatement("select * from categories where id = ?");
+        statement.setInt(1, id);
+        ResultSet rs = statement.executeQuery();
         if (rs.next()) {
-            category = new ProductCategory(
+            productCategory = new ProductCategory(
+                    rs.getInt("id"),
                     rs.getString("name"),
                     rs.getString("description"),
-                    rs.getString("department")
-            );
-            category.setId(rs.getInt("id"));
+                    rs.getString("department"));
         }
-        return category;
-    }
-
-    @Override
-    public void remove(Integer id) {
-
+        return productCategory;
     }
 
     @Override
     public List<ProductCategory> getAll() throws SQLException {
         List<ProductCategory> categories = new ArrayList<>();
-        Statement statement = getConnection().createStatement();
-        ResultSet rs = statement.executeQuery("select * from categories");
+        PreparedStatement statement = getConnection().prepareStatement("select * from categories");
+        ResultSet rs = statement.executeQuery();
         while(rs.next()) {
             ProductCategory category = new ProductCategory(
+                    rs.getInt("id"),
                     rs.getString("name"),
                     rs.getString("description"),
                     rs.getString("department")
             );
-            category.setId(rs.getInt("id"));
             categories.add(category);
         }
         return categories;
