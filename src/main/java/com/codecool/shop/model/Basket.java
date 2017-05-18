@@ -22,8 +22,7 @@ public class Basket {
         }
     }
 
-    public void remove(BasketItem item, Integer quantity) {
-        item.setQuantity(quantity);
+    public void remove(BasketItem item) {
         items.remove(item);
     }
 
