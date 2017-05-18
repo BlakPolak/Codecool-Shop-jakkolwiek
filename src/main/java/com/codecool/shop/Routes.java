@@ -30,5 +30,9 @@ public class Routes {
             String query = req.queryParams("query");
             return Application.getApp().getProductController().listFoundedProducts(query);
         });
+
+        get("/add_product_form/", (Request req, Response res) -> {
+            return Application.getApp().getProductController().addProductForm(req, res);
+        });
     }
 }
