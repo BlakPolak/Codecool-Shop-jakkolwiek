@@ -53,7 +53,8 @@ public class ProductController extends BaseController{
         return this.listProducts(products);
     }
 
-    public String listFoundedProducts(String query) throws SQLException{
+    public String listFoundedProducts(Request req) throws SQLException{
+        String query = req.queryParams("query");
         List<Product> products = this.getProductsByQuery(query);
         return this.listProducts(products);
     }
