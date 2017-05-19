@@ -1,4 +1,3 @@
-
 package com.codecool.shop;
 
 import com.codecool.shop.controller.BasketController;
@@ -8,7 +7,6 @@ import com.codecool.shop.exception.DbCreateStructuresException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import static spark.Spark.stop;
 
 public class Application {
@@ -35,7 +33,7 @@ public class Application {
 
     }
 
-    public BasketController getBasketController() {
+    BasketController getBasketController() {
         return this.basketController;
     }
 
@@ -63,6 +61,15 @@ public class Application {
                     stop();
                 }
             }
-         }
+        }
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                Thread.sleep(200);
+                connection.close();
+                System.out.println("Shouting down ...");
+            } catch (InterruptedException | SQLException e) {
+                e.printStackTrace();
+            }
+        }));
     }
 }
