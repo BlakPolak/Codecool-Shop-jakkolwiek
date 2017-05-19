@@ -2,7 +2,6 @@ package com.codecool.shop.dao;
 
 import com.codecool.shop.model.ProductCategory;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 public interface ProductCategoryDao {
@@ -10,7 +9,7 @@ public interface ProductCategoryDao {
     void add(ProductCategory category);
     ProductCategory find(int id);
     void remove(int id);
-    ResultSet lastInsertRowID();
+    Integer lastInsertRowID();
 
     List<ProductCategory> getAll();
 

@@ -22,12 +22,13 @@ public class ProductCategoryDaoSqlite extends BaseDao implements ProductCategory
             System.out.println(e.getMessage());
         }
     }
-    public ResultSet lastInsertRowID() {
+    public Integer lastInsertRowID() {
         try {
-            PreparedStatement statement = Application.getApp().getConnection().prepareStatement("SELECT last_insert_rowid() FROM categories");
+            PreparedStatement statement = Application.getApp().getConnection().prepareStatement("SELECT * FROM categories ORDER BY id DESC LIMIT 1");
             ResultSet rs = statement.executeQuery();
-            statement.close();
-            return rs;
+            Integer id = rs.getInt(1);
+            System.out.println(id);
+            return id;
         } catch(SQLException e) {
             System.out.println("Connect to DB failed");
             System.out.println(e.getMessage());
