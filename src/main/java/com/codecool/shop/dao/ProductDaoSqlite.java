@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ProductDaoSqlite extends BaseDao implements ProductDao {
     @Override
-    public void add(Product product, ResultSet rs) {
+    public void add(Product product, Integer categoryId, Integer supplierId) {
         ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite();
         ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite();
         try {
@@ -25,8 +25,8 @@ public class ProductDaoSqlite extends BaseDao implements ProductDao {
             statement.setString(1, product.getName());
             statement.setString(2, product.getDescription());
             statement.setString(3, product.getPrice());
-            statement.setInt(4, rs.getInt("id"));
-            statement.setInt(5, product.getSupplier().getId());
+            statement.setInt(4, categoryId);
+            statement.setInt(5, supplierId);
             statement.executeUpdate();
             statement.close();
         } catch(SQLException e) {
