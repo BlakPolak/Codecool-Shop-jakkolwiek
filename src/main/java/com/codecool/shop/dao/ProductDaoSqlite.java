@@ -17,7 +17,22 @@ import java.util.List;
 
 public class ProductDaoSqlite extends BaseDao implements ProductDao {
     @Override
-    public void add(Product product) {
+    public void add(Product product, ResultSet rs) {
+        ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite();
+        ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite();
+        try {
+            PreparedStatement statement = Application.getApp().getConnection().prepareStatement("INSERT INTO products(name, description, price, category_id, supplier_id) VALUES(?, ?, ?, ?, ?)");
+            statement.setString(1, product.getName());
+            statement.setString(2, product.getDescription());
+            statement.setString(3, product.getPrice());
+            statement.setInt(4, rs.getInt("id"));
+            statement.setInt(5, product.getSupplier().getId());
+            statement.executeUpdate();
+            statement.close();
+        } catch(SQLException e) {
+            System.out.println("Connect to DB failed");
+            System.out.println(e.getMessage());
+        }
 
     }
 

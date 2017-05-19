@@ -4,11 +4,12 @@ import com.codecool.shop.model.Supplier;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 public interface ProductDao {
 
-    void add(Product product);
+    void add(Product product, ResultSet rs);
     Product find(int id);
     void remove(int id);
     List<Product> getAll();
