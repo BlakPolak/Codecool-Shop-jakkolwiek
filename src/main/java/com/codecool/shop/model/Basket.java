@@ -17,23 +17,26 @@ public class Basket {
 
         if(!productExists) {
             BasketItem item = new BasketItem(product, quantity);
+            item.setId(product.getId());
             this.getItems().add(item);
         }
+    }
+
+    public void remove(BasketItem item) {
+        items.remove(item);
     }
 
     public List<BasketItem> getItems() {
         return items;
     }
 
-    public void setItems(List<BasketItem> items) {
-        this.items = items;
-    }
-
-    public Integer getTotalCount() {
-        Integer count = 0;
-        for(BasketItem item: this.getItems()) {
-            count += item.getQuantity();
+    public BasketItem getBasketItemById(Integer id) {
+        for(BasketItem basketItem : this.getItems()) {
+            if(basketItem.getId().equals(id)) {
+                basketItem.setId(id);
+                return basketItem;
+            }
         }
-        return count;
+        return null;
     }
 }

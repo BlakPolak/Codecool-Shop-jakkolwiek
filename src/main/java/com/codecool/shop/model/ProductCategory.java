@@ -1,35 +1,20 @@
 package com.codecool.shop.model;
 
-import java.util.ArrayList;
 
 public class ProductCategory extends BaseModel {
     private String department;
-    private ArrayList<Product> products;
 
-    public ProductCategory(String name, String department, String description) {
-        super(name);
-        this.department = department;
-        this.products = new ArrayList<>();
+    public ProductCategory(Integer id, String name, String description, String department) {
+        super(id, name, description);
+        setDepartment(department);
     }
 
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
+    private void setDepartment(String department) {
         this.department = department;
     }
 
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-    }
-
-    public ArrayList getProducts() {
-        return this.products;
-    }
-
-    public void addProduct(Product product) {
-        this.products.add(product);
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String toString() {

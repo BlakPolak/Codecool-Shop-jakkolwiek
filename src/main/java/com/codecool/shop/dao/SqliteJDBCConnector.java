@@ -1,5 +1,7 @@
 package com.codecool.shop.dao;
 
+import com.codecool.shop.exception.DbCreateStructuresException;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,36 +9,31 @@ import java.sql.Statement;
 
 public class SqliteJDBCConnector {
 
-    public static Connection connection() {
-        Connection connection = null;
+    public static Connection connectToDb() throws SQLException {
+        return DriverManager.getConnection("jdbc:sqlite:src/main/resources/database.db");
+    }
 
+    public static void runSql(Connection c, String path) throws DbCreateStructuresException, IOException {
+        String s;
+        StringBuilder sb = new StringBuilder();
         try {
-            connection = DriverManager.getConnection("jdbc:sqlite:src/main/resources/database.db");
-        } catch (SQLException e) {
-            System.out.println("Connection to DB failed");
+            FileReader fr = new FileReader(new File(path));
+            BufferedReader br = new BufferedReader(fr);
+            while((s = br.readLine()) != null) {
+                sb.append(s);
+            }
+            br.close();
+            String[] inst = sb.toString().split(";");
+            Statement st = c.createStatement();
+            for(Integer i = 0; i<inst.length; i++) {
+                if(!inst[i].trim().equals("")) {
+                    st.executeUpdate(inst[i]);
+                    System.out.println(">>"+inst[i]);
+                }
+            }
         }
-
-        return connection;
+        catch(SQLException e) {
+            throw new DbCreateStructuresException("Error during creating db structure.");
+        }
     }
-
-    public static void createTables() throws SQLException {
-        Connection connection = connection();
-        Statement statement = connection.createStatement();
-        statement.execute("CREATE TABLE IF NOT EXISTS products\n" +
-                "(\n" +
-                "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "    name VARCHAR NOT NULL,\n" +
-                "    description TEXT,\n" +
-                "    price DOUBLE DEFAULT 0.00 NOT NULL\n" +
-                ")");
-
-        statement.execute("CREATE TABLE IF NOT EXISTS categories\n" +
-                "(\n" +
-                "    id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "    name VARCHAR(255) NOT NULL,\n" +
-                "    description TEXT NOT NULL,\n" +
-                "    department VARCHAR(255) NOT NULL\n" +
-                ");");
-    }
-
 }
