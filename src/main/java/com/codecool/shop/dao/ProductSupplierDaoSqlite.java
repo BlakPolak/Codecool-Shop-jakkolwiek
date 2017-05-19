@@ -1,11 +1,9 @@
 package com.codecool.shop.dao;
 
+import com.codecool.shop.Application;
 import com.codecool.shop.model.Supplier;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +13,18 @@ public class ProductSupplierDaoSqlite extends BaseDao implements ProductSupplier
 
     @Override
     public void add(Supplier supplier) {
-
+        try {
+            PreparedStatement statement = Application.getApp().getConnection().prepareStatement("INSERT INTO suppliers(name, description) VALUES(?, ?)");
+            statement.setString(1, supplier.getName());
+            statement.setString(2, supplier.getDescription());
+            statement.executeUpdate();
+            statement.close();
+        } catch(SQLException e) {
+            System.out.println("Connect to DB failed");
+            System.out.println(e.getMessage());
+        }
     }
+
 
     @Override
     public Supplier find(int id) {
