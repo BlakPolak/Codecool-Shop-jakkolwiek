@@ -26,26 +26,13 @@ public class Basket {
         items.remove(item);
     }
 
-
     public List<BasketItem> getItems() {
         return items;
     }
 
-    public void setItems(List<BasketItem> items) {
-        this.items = items;
-    }
-
-    public Integer getTotalCount() {
-        Integer count = 0;
-        for(BasketItem item: this.getItems()) {
-            count += item.getQuantity();
-        }
-        return count;
-    }
-
     public BasketItem getBasketItemById(Integer id) {
         for(BasketItem basketItem : this.getItems()) {
-            if(basketItem.getId() == id) {
+            if(basketItem.getId().equals(id)) {
                 basketItem.setId(id);
                 return basketItem;
             }
