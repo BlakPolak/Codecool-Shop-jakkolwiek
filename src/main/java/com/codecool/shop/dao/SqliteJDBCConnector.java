@@ -10,7 +10,6 @@ import java.sql.Statement;
 public class SqliteJDBCConnector {
 
     public static Connection connectToDb() throws SQLException {
-        System.out.println("Connection to DB...");
         return DriverManager.getConnection("jdbc:sqlite:src/main/resources/database.db");
     }
 

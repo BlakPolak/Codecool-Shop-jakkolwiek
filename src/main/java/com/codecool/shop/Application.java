@@ -42,7 +42,6 @@ public class Application {
     public static void start(String[] args) {
         final String initDb = "src/main/resources/init.sql";
         final String migrateDb = "src/main/resources/migrate.sql";
-        System.out.println("Initializing application...");
         try {
             connection = SqliteJDBCConnector.connectToDb();
             if (args.length > 0 && args[0].equals("--init-db")) {
