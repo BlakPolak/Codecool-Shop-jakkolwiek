@@ -1,20 +1,42 @@
 package com.codecool.shop.dao;
 
-import com.codecool.shop.model.Product;
+import com.codecool.shop.Application;
 import com.codecool.shop.model.ProductCategory;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoryDaoSqlite extends BaseDao implements ProductCategoryDao {
     @Override
     public void add(ProductCategory category) {
-
+        try {
+            PreparedStatement statement = Application.getApp().getConnection().prepareStatement("INSERT INTO categories(name, description, department) VALUES(?, ?, ?)");
+            statement.setString(1, category.getName());
+            statement.setString(2, category.getDescription());
+            statement.setString(3, category.getDepartment());
+            statement.executeUpdate();
+            statement.close();
+        } catch(SQLException e) {
+            System.out.println("Connect to DB failed");
+            System.out.println(e.getMessage());
+        }
     }
+    public ResultSet lastInsertRowID() {
+        try {
+            PreparedStatement statement = Application.getApp().getConnection().prepareStatement("SELECT last_insert_rowid() FROM categories");
+            ResultSet rs = statement.executeQuery();
+            statement.close();
+            return rs;
+        } catch(SQLException e) {
+            System.out.println("Connect to DB failed");
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+
+
 
     @Override
     public ProductCategory find(int id) {
