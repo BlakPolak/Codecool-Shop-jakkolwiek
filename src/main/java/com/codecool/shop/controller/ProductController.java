@@ -7,6 +7,7 @@ import com.codecool.shop.model.Supplier;
 import spark.Request;
 import spark.Response;
 
+import java.sql.ResultSet;
 import java.util.*;
 
 public class ProductController extends BaseController{
@@ -79,9 +80,11 @@ public class ProductController extends BaseController{
         Supplier supplier = new Supplier(supplierName,supplierDescription);
         productSupplierDao.add(supplier);
         ProductCategory category = new ProductCategory(categoryName,categoryDescription,categoryDepartment);
+        Integer id_supplier =productSupplierDao.lastInsertRowID();
         productCategoryDao.add(category);
+        Integer id_category =productCategoryDao.lastInsertRowID();
         Product product = new Product(productName, Float.parseFloat(productPrice),"PLN", productDescription, category,supplier);
-        productDao.add(product, productCategoryDao.lastInsertRowID());
+        productDao.add(product, id_category, id_supplier);
         res.redirect("/");
         return "";
     }
