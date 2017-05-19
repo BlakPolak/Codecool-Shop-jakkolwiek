@@ -15,7 +15,7 @@ public class BasketController extends  BaseController{
     private ProductDao productDao = new ProductDaoSqlite();
     private Basket basket = new Basket();
 
-    public String addToCartAction(Request req, Response res) throws SQLException{
+    public String addToCartAction(Request req, Response res) throws SQLException {
         Integer id = Integer.parseInt(req.queryParams("id"));
         Product product = productDao.getBy(id);
         basket.add(product, 1);
@@ -38,7 +38,5 @@ public class BasketController extends  BaseController{
         model.put("products", products);
         String templatePath = "product/basket";
         return this.getModel(templatePath, model);
-
     }
-
 }
