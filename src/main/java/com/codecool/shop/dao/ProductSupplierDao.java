@@ -10,7 +10,7 @@ public interface ProductSupplierDao {
     void add(Supplier category);
     Supplier find(int id);
     void remove(int id);
-
+    Integer lastInsertRowID();
     List<Supplier> getAll();
 
 }

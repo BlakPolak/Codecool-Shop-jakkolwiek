@@ -24,6 +24,19 @@ public class ProductSupplierDaoSqlite extends BaseDao implements ProductSupplier
             System.out.println(e.getMessage());
         }
     }
+    public Integer lastInsertRowID() {
+        try {
+            PreparedStatement statement = Application.getApp().getConnection().prepareStatement("SELECT * FROM suppliers ORDER BY id DESC LIMIT 1");
+            ResultSet rs = statement.executeQuery();
+            Integer id = rs.getInt(1);
+            System.out.println(id);
+            return id;
+        } catch(SQLException e) {
+            System.out.println("Connect to DB failed");
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
 
     @Override
