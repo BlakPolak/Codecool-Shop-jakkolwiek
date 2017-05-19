@@ -68,13 +68,6 @@ public class ProductController extends BaseController{
     }
 
     public String addProduct(Request req, Response res) {
-//        Map<String, Object> model = new HashMap<>();
-//        List<ProductCategory> categories = productCategoryDao.getAll();
-//        List<Supplier> suppliers = productSupplierDao.getAll();
-//        model.put("categories", categories);
-//        model.put("suppliers", suppliers);
-//        String templatePath = "product/add_product";
-//        return this.getModel(templatePath, model);
         String productName = req.queryParams("product_name");
         String productDescription = req.queryParams("product_description");
         String productPrice = req.queryParams("product_price");
@@ -83,7 +76,12 @@ public class ProductController extends BaseController{
         String categoryDepartment = req.queryParams("category_department");
         String supplierName = req.queryParams("supplier_name");
         String supplierDescription = req.queryParams("supplier_description");
-//        controller.createEvent(name, categoryName, description, startDate);
+        Supplier supplier = new Supplier(supplierName,supplierDescription);
+        productSupplierDao.add(supplier);
+        ProductCategory category = new ProductCategory(categoryName,categoryDescription,categoryDepartment);
+        productCategoryDao.add(category);
+        Product product = new Product(productName, Float.parseFloat(productPrice),"PLN", productDescription, category,supplier);
+        productDao.add(product, productCategoryDao.lastInsertRowID());
         res.redirect("/");
         return "";
     }
