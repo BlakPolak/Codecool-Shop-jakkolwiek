@@ -1,10 +1,14 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.*;
+import com.codecool.shop.json.JsonUtil;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import freemarker.ext.beans.HashAdapter;
 import spark.Request;
+import spark.Response;
+
 import java.sql.SQLException;
 import java.util.*;
 
@@ -15,6 +19,10 @@ public class ProductController extends BaseController{
 
     public ProductCategoryDao getProductCategoryDao() {
         return productCategoryDao;
+    }
+
+    public ProductDao getProductDao() {
+        return productDao;
     }
 
     public ProductSupplierDao getProductSupplierDao() {
@@ -63,5 +71,25 @@ public class ProductController extends BaseController{
             }
         }
         return outputList;
+    }
+
+    public String addProduct(Request req) throws SQLException{
+        Map<String, Object> model = new HashMap<>();
+        model.put("suppliers", this.getProductSupplierDao().getAll());
+        model.put("categories", this.getProductCategoryDao().getAll());
+        return this.getModel("product/add_product", model);
+    }
+
+    public String addProductToDb(Request req, Response res) throws SQLException{
+        Map<String, String> map = JsonUtil.parse(req.body());
+        Long id = this.getProductDao().addProduct(map.get("name"), Float.parseFloat(map.get("defaultPrice")),
+                map.get("description"), Integer.parseInt(map.get("categoryId")),
+                Integer.parseInt(map.get("supplierId")));
+        if (id != null) {
+            map.put("id", id.toString());
+        } else {
+            map.put("error", "Cannot add product");
+        }
+        return JsonUtil.objectToJson(map);
     }
 }
