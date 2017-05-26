@@ -6,12 +6,14 @@ import static spark.Spark.get;
 import static spark.Spark.port;
 import static spark.Spark.staticFileLocation;
 import static spark.Spark.*;
+import static spark.debug.DebugScreen.enableDebugScreen;
 
 class Routes {
 
     void run() {
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
         staticFileLocation("/public");
+        enableDebugScreen();
         port(8888);
 
         get("/", (Request req, Response res) -> {
@@ -32,6 +34,14 @@ class Routes {
 
         get("/search/", (Request req, Response res) -> {
             return Application.getApp().getProductController().listFoundedProducts(req);
+        });
+
+        get("/products/add", (Request req, Response res) -> {
+            return Application.getApp().getProductController().addProduct(req);
+        });
+
+        post("/products/add", (Request req, Response res) -> {
+            return Application.getApp().getProductController().addProductToDb(req, res);
         });
     }
 }
