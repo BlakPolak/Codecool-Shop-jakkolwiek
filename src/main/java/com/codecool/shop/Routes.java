@@ -43,5 +43,9 @@ class Routes {
         post("/products/add", (Request req, Response res) -> {
             return Application.getApp().getProductController().addProductToDb(req, res);
         });
+
+        get("/products/add", (Request req, Response res) -> {
+            return Application.getApp().getProductController().addProduct();
+        });
     }
 }
