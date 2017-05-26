@@ -5,7 +5,6 @@ import com.codecool.shop.json.JsonUtil;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
-import freemarker.ext.beans.HashAdapter;
 import spark.Request;
 import spark.Response;
 
