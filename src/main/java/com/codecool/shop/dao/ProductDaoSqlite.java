@@ -7,6 +7,7 @@ import com.codecool.shop.model.Supplier;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,5 +63,29 @@ public class ProductDaoSqlite extends BaseDao implements ProductDao {
             ));
         }
         return products;
+    }
+
+    @Override
+    public Long addProduct(String name, Float defaultPrice, String description, Integer categoryId, Integer supplierId) throws SQLException {
+        PreparedStatement statement = getConnection().prepareStatement(
+                "insert into products (name, description, price, category_id, supplier_id) values (?, ?, ?, ?, ?)",
+                Statement.RETURN_GENERATED_KEYS);
+        statement.setString(1, name);
+        statement.setFloat(3, defaultPrice);
+        statement.setString(2, description);
+        statement.setInt(4, categoryId);
+        statement.setInt(5, supplierId);
+        Integer affectedRows = statement.executeUpdate();
+        if (affectedRows == 0) {
+            return null;
+        }
+        try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                return generatedKeys.getLong(1);
+            }
+            else {
+                throw new SQLException("Creating product failed, no ID obtained.");
+            }
+        }
     }
 }
