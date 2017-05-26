@@ -72,7 +72,7 @@ public class ProductController extends BaseController{
         return outputList;
     }
 
-    public String addProduct(Request req) throws SQLException{
+    public String addProduct() throws SQLException{
         Map<String, Object> model = new HashMap<>();
         model.put("suppliers", this.getProductSupplierDao().getAll());
         model.put("categories", this.getProductCategoryDao().getAll());
