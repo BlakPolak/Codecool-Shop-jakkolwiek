@@ -29,67 +29,104 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="home">
-        <a class="navbar-brand" th:href="@{~/}"><div class="glyphicon glyphicon-home"></div></a>
+
+        <div class="col-md-3">
+
+                <div class="dropdown">
+                    <form class="form-group" method="get" th:action="@{~/}">
+                        <label for="category">Filter by category:</label>
+                        <select class="form-control" id="category" name="category">
+                            <option th:each="categ: ${categories}" th:text="${categ.name}" th:value="${categ.id}"></option>
+                        </select>
+                        <button type="submit" class="btn" id="filterCategory">Filter</button>
+                    </form>
+                </div>
+
         </div>
-        <div class="basket">
-            <a th:href="@{'~/basket/'}"><img src='/img/basket.png' alt="" height="25px" /></a>
+        <div class="col-md-3">
+
+                <div class="dropdown">
+                    <form class="form-group" method="get" th:action="@{~/}">
+                        <label for="supplier">Filter by supplier:</label>
+                        <select class="form-control" id="supplier" name="supplier">
+                            <option th:each="supp,iterStat :${suppliers}" th:text="${supp.name}" th:value="${supp.id}"></option>
+                        </select>
+                        <button type="submit" class="btn">Filter</button>
+                    </form>
+                </div>
+
         </div>
-        <div class="col-sm-4">
+        <div class="col-md-3">
             <div class="dropdown">
-                <form class="form-group" method="get" th:action="@{~/}">
-                    <label for="category">Filter by category:</label>
-                    <select class="form-control" id="category" name="category">
-                        <option th:each="categ: ${categories}" th:text="${categ.name}" th:value="${categ.id}"></option>
-                    </select>
-                    <button type="submit" class="btn">Filter</button>
+                <form class="form-group" th:method="get" th:action="@{~/search/}" th:class="form-horizontal">
+                    <label th:for="search">Find product</label>
+                    <input th:class="form-control" th:type="text" th:name="query" th:id="search" pattern=".{3,}" title="3 characters minimum" required="required" />
+                    <button class="btn" type="submit">Search</button>
                 </form>
             </div>
         </div>
-        <div class="col-sm-4">
-            <div class="dropdown">
-                <form class="form-group" method="get" th:action="@{~/}">
-                    <label for="supplier">Filter by supplier:</label>
-                    <select class="form-control" id="supplier" name="supplier">
-                        <option th:each="supp,iterStat :${suppliers}" th:text="${supp.name}" th:value="${supp.id}"></option>
-                    </select>
-                    <button type="submit" class="btn">Filter</button>
-                </form>
+        <div class="col-md-3">
+
+            <div class="home">
+                <a class="navbar-brand" th:href="@{~/}"><div class="glyphicon glyphicon-home"></div></a>
             </div>
+            <div class="basket">
+                <a th:href="@{'~/basket/'}"><img src='/img/basket.png' alt="" height="25px" /></a>
+            </div>
+
         </div>
-    </div>
-    <div class="find">
-        <form th:method="get" th:action="@{~/search/}" th:class="form-horizontal">
-            <label th:for="search">Find product</label>
-            <input th:type="text" th:name="query" th:id="search" pattern=".{3,}" title="3 characters minimum" required="required" />
-            <input th:class="button" th:type="submit"/>
-        </form>
     </div>
 
+
     <div id="products" class="row list-group">
-            <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
-                <div class="thumbnail">
-                    <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                    <div class="caption">
-                        <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
-                        <p class="group inner list-group-item-text" th:text="${prod.description}">Product description... </p>
-                        <div class="row">
-                            <div class="col-xs-12 col-md-6">
-                                <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-                            </div>
-                            <div class="col-xs-12 col-md-6">
-                                <form method="post" th:action="@{'~/basket/add/'}">
-                                    <input type="hidden" name="id" th:value="${prod.getId()}" />
-                                    <input type="submit" class="btn btn-info" value="Add to basket" />
-                                </form>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="item col-md-3" th:each="prod,iterStat : ${products}">
+                        <div class="thumbnail">
+                            <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                            <div class="caption">
+                                <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
+                                <p class="group inner list-group-item-text" th:text="${prod.description}">Product description... </p>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12">
+                                        <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <a class="btn btn-info" th:text="'Add'+' '+'to'+' '+'basket'" th:id="'prod_id_'+${prod.getId()}"></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+        </div>
+        <div class="col-md-3 thumbnail">
+            <div class="label label-primary col-md-12" style="font-size: 120%;">Your basket</div><div id="info"></div>
+                <table id="basketTable" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th width="10%">
+                                No
+                            </th>
+                            <th width="30%">
+                                Name
+                            </th>
+                            <th width="10%">
+                                Quantity
+                            </th>
+                            <th width="20%">
+                                Price
+                            </th>
+                            <th width="30%">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+        </div>
     </div>
 </div>
-
 <div th:replace="footer :: copy"></div>
 <script src="/js/main.js"></script>
 </body>
