@@ -2,6 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.ProductDaoSqlite;
+import com.codecool.shop.json.JsonUtil;
 import com.codecool.shop.model.*;
 import spark.Request;
 import spark.Response;
@@ -15,21 +16,35 @@ public class BasketController extends  BaseController{
     private ProductDao productDao = new ProductDaoSqlite();
     private Basket basket = new Basket();
 
+    public Basket getBasket() {
+        return basket;
+    }
+
+    public ProductDao getProductDao() {
+        return productDao;
+    }
+
     public String addToCartAction(Request req, Response res) throws SQLException {
-        Integer id = Integer.parseInt(req.queryParams("id"));
-        Product product = productDao.getBy(id);
-        basket.add(product, 1);
-        res.redirect("/basket/");
-        return "";
+        Map<String, String> idProductToAdd = JsonUtil.parse(req.body());
+        Product product = this.getProductDao().getBy(Integer.parseInt(idProductToAdd.get("prodId")));
+        this.getBasket().add(product, 1);
+        return JsonUtil.objectToJson(this.getBasket());
+    }
+
+    public String updateBasket() {
+        return JsonUtil.objectToJson(this.getBasket());
     }
 
     public String removeFromCartAction(Request req, Response res) {
-        int id = Integer.parseInt(req.queryParams("id"));
-        BasketItem item = basket.getBasketItemById(id);
-        if(item.getQuantity()>1) item.setQuantity(item.getQuantity()-1);
-        else basket.remove(item);
-        res.redirect("/basket/");
-        return "";
+        Map<String, String> idProductToRemove = JsonUtil.parse(req.body());
+        Integer basketItemId = Integer.parseInt(idProductToRemove.get("basketItemId"));
+        BasketItem item = basket.getBasketItemById(basketItemId);
+        if(item.getQuantity()>1) {
+            item.setQuantity(item.getQuantity()-1);
+        } else {
+            basket.remove(item);
+        }
+        return JsonUtil.objectToJson(this.getBasket());
     }
 
     public String listProductsInCart() {
