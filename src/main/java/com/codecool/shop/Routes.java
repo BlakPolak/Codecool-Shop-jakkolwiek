@@ -20,11 +20,11 @@ class Routes {
             return Application.getApp().getProductController().listProducts(req);
         });
 
-        post("/basket/add/", (Request req, Response res) -> {
+        post("/basket/add", (Request req, Response res) -> {
             return Application.getApp().getBasketController().addToCartAction(req, res);
         });
 
-        post("/basket/remove/", (Request req, Response res) -> {
+        post("/basket/remove", (Request req, Response res) -> {
             return Application.getApp().getBasketController().removeFromCartAction(req, res);
         });
 
@@ -32,12 +32,12 @@ class Routes {
             return Application.getApp().getBasketController().listProductsInCart();
         });
 
-        get("/search/", (Request req, Response res) -> {
-            return Application.getApp().getProductController().listFoundedProducts(req);
+        post("/basket/update", (Request req, Response res) -> {
+            return Application.getApp().getBasketController().updateBasket();
         });
 
-        get("/products/add", (Request req, Response res) -> {
-            return Application.getApp().getProductController().addProduct(req);
+        get("/search/", (Request req, Response res) -> {
+            return Application.getApp().getProductController().listFoundedProducts(req);
         });
 
         post("/products/add", (Request req, Response res) -> {
