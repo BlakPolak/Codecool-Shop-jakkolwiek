@@ -33,7 +33,7 @@ public class Application {
 
     }
 
-    BasketController getBasketController() {
+    public BasketController getBasketController() {
         return this.basketController;
     }
 

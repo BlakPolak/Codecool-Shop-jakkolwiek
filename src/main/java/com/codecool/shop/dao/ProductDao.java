@@ -12,5 +12,6 @@ public interface ProductDao {
     List<Product> getAll() throws SQLException;
     List<Product> getBy(Supplier supplier) throws SQLException;
     List<Product> getBy(ProductCategory productCategory) throws SQLException;
+    Long addProduct(String name, Float defaultPrice, String description, Integer categoryId, Integer supplierId) throws SQLException;
 
 }
