@@ -12,7 +12,17 @@ class BaseModelTest {
     }
 
     @Test
-    void setId() {
+    void testForSetIdConstructorWithoutId() {
+        BaseModel baseModel = new BaseModel("name", "description");
+        baseModel.setId(1);
+        assertEquals(1, (int) baseModel.getId());
+    }
+
+    @Test
+    void testIdIntegerClass() {
+        BaseModel baseModel = new BaseModel("name", "description");
+        baseModel.setId(1);
+        assertEquals(Integer.class, baseModel.getId().getClass());
     }
 
     @Test
