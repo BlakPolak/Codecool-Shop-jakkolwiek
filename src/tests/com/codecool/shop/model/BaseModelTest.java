@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BaseModelTest {
     @Test
-    void getId() {
+    void testGetIdBeforeSetId() {
+        BaseModel baseModel = new BaseModel("name", "description");
+        assertEquals(null, baseModel.getId());
     }
 
     @Test
