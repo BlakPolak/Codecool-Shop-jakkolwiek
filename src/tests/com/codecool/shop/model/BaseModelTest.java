@@ -32,19 +32,16 @@ class BaseModelTest {
     }
 
     @Test
-    void getName() {
+    void testSetAndGetName() {
+        BaseModel baseModel = new BaseModel("name", "description");
+        baseModel.setName("NewName");
+        assertEquals("NewName", baseModel.getName());
     }
 
     @Test
-    void setName() {
+    void testSetAndGetDescription() {
+        BaseModel baseModel = new BaseModel("name", "description");
+        baseModel.setDescription("NewDescription");
+        assertEquals("NewDescription", baseModel.getDescription());
     }
-
-    @Test
-    void getDescription() {
-    }
-
-    @Test
-    void setDescription() {
-    }
-
 }
