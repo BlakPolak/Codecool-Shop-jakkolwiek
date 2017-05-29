@@ -19,6 +19,12 @@ class BaseModelTest {
     }
 
     @Test
+    void testForSetIdConstructorWithId() {
+        BaseModel baseModel = new BaseModel(1, "name", "description");
+        assertEquals(1, (int) baseModel.getId());
+    }
+
+    @Test
     void testIdIntegerClass() {
         BaseModel baseModel = new BaseModel("name", "description");
         baseModel.setId(1);
