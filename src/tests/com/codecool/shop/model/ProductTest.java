@@ -19,6 +19,19 @@ class ProductTest {
         });
     }
 
+    @Test
+    void testFailIfPriceIsNotAccurate() {
+        Product product = new Product(null,
+                null,
+                12.99f,
+                "PLN",
+                null,
+                null,
+                null
+        );
+        assertEquals(12.99f + " " + "PLN",product.getPrice());
+    }
+
 
 
 }
