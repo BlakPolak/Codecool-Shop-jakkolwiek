@@ -2,13 +2,13 @@ package com.codecool.shop.model;
 
 public class Product extends BaseModel {
 
-    private float defaultPrice;
+    private Float defaultPrice;
     private String defaultCurrency;
     private ProductCategory productCategory;
     private Supplier supplier;
 
 
-    public Product(Integer id, String name, float defaultPrice, String currencyString, String description,
+    public Product(Integer id, String name, Float defaultPrice, String currencyString, String description,
                    ProductCategory productCategory, Supplier supplier) {
         super(id, name, description);
         this.setPrice(defaultPrice, currencyString);
@@ -32,7 +32,7 @@ public class Product extends BaseModel {
         return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency;
     }
 
-    private void setPrice(float price, String currency) {
+    private void setPrice(Float price, String currency) {
         this.defaultPrice = price;
         this.defaultCurrency = currency;
     }
