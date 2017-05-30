@@ -31,7 +31,7 @@ public class Basket {
         return items;
     }
 
-    public BasketItem getBasketItemById(Integer id) {
+    public BasketItem getBasketItemByProductId(Integer id) {
         for(BasketItem basketItem : this.getItems()) {
             if(basketItem.getId().equals(id)) {
                 basketItem.setId(id);

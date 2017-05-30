@@ -65,18 +65,18 @@ class BasketTest {
     @Test
     public void testFindBasketItemByIdIfItemInBasket() {
         basket.add(this.product, 2);
-        assertEquals(1, (int) basket.getBasketItemById(1).getProduct().getId());
+        assertEquals(1, (int) basket.getBasketItemByProductId(1).getProduct().getId());
     }
 
     @Test
     public void testFindBasketItemByIdIfNotInBasket() {
         basket.add(this.product, 2);
-        assertEquals(null, basket.getBasketItemById(2));
+        assertEquals(null, basket.getBasketItemByProductId(2));
     }
 
     @Test
     public void testFindBasketItemIfBasketEmpty() {
-        assertEquals(null, basket.getBasketItemById(2));
+        assertEquals(null, basket.getBasketItemByProductId(2));
     }
 }
 
