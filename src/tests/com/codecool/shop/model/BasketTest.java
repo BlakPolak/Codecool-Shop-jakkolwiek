@@ -19,10 +19,14 @@ class BasketTest {
                 null, null, null);
     }
 
+    @BeforeEach
+    public void getBasket() {
+        basket = new Basket();
+    }
+
     @Test
     public void testAddBasketItemIfNotInBasket() {
         BasketItem basketItem = new BasketItem(this.product, 1);
-        Basket basket = new Basket();
         ArrayList<BasketItem> basketItems = new ArrayList<>();
         basketItems.add(basketItem);
         basket.add(this.product, 1);
@@ -35,7 +39,6 @@ class BasketTest {
     @Test
     public void testAddBasketItemIfItemInBasket() {
         BasketItem basketItem = new BasketItem(this.product, 1);
-        Basket basket = new Basket();
         ArrayList<BasketItem> basketItems = new ArrayList<>();
         basketItems.add(basketItem);
         basket.add(this.product, 1);
@@ -45,7 +48,6 @@ class BasketTest {
 
     @Test
     public void testRemoveBasketItemIfItemInBasket() {
-        Basket basket = new Basket();
         basket.add(this.product, 2);
         BasketItem basketItem = basket.getItems().get(0);
         basket.remove(basketItem);
@@ -54,7 +56,6 @@ class BasketTest {
 
     @Test
     public void testRemoveBasketItemIfItemNotInBasket() {
-        Basket basket = new Basket();
         BasketItem basketItem = new BasketItem(this.product, 1);
         assertThrows(IllegalArgumentException.class, ()-> {
             basket.remove(basketItem);
@@ -63,21 +64,18 @@ class BasketTest {
 
     @Test
     public void testFindBasketItemByIdIfItemInBasket() {
-        Basket basket = new Basket();
         basket.add(this.product, 2);
         assertEquals(1, (int) basket.getBasketItemById(1).getProduct().getId());
     }
 
     @Test
     public void testFindBasketItemByIdIfNotInBasket() {
-        Basket basket = new Basket();
         basket.add(this.product, 2);
         assertEquals(null, basket.getBasketItemById(2));
     }
 
     @Test
     public void testFindBasketItemIfBasketEmpty() {
-        Basket basket = new Basket();
         assertEquals(null, basket.getBasketItemById(2));
     }
 }
