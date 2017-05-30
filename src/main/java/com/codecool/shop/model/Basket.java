@@ -23,6 +23,7 @@ public class Basket {
     }
 
     public void remove(BasketItem item) {
+        if (!items.contains(item)) throw new IllegalArgumentException();
         items.remove(item);
     }
 
