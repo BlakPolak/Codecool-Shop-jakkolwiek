@@ -42,5 +42,14 @@ class BasketTest {
         basket.add(this.product, 1);
         assertEquals(1, basket.getItems().size());
     }
+
+    @Test
+    public void testRemoveBasketItemIfItemInBasket() {
+        Basket basket = new Basket();
+        basket.add(this.product, 2);
+        BasketItem basketItem = basket.getItems().get(0);
+        basket.remove(basketItem);
+        assertEquals(0, basket.getItems().size());
+    }
 }
 
