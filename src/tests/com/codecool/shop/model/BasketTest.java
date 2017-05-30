@@ -60,5 +60,12 @@ class BasketTest {
             basket.remove(basketItem);
         });
     }
+
+    @Test
+    public void testFindBasketItemByIdIfItemInBasket() {
+        Basket basket = new Basket();
+        basket.add(this.product, 2);
+        assertEquals(1, (int) basket.getBasketItemById(1).getProduct().getId());
+    }
 }
 
