@@ -38,7 +38,7 @@ public class BasketController extends  BaseController{
     public String removeFromCartAction(Request req, Response res) {
         Map<String, String> idProductToRemove = JsonUtil.parse(req.body());
         Integer basketItemId = Integer.parseInt(idProductToRemove.get("basketItemId"));
-        BasketItem item = basket.getBasketItemById(basketItemId);
+        BasketItem item = basket.getBasketItemByProductId(basketItemId);
         if(item.getQuantity()>1) {
             item.setQuantity(item.getQuantity()-1);
         } else {
