@@ -34,6 +34,13 @@ class ProductTest {
         assertEquals(12.99f + " " + "PLN",product.getPrice());
     }
 
+    @Test
+    void testSetAndGetSupplier(){
+        Supplier supplier = new Supplier(null, null, null);
+        product.setSupplier(supplier);
+        assertEquals(supplier,product.getSupplier());
+    }
+
 
 
 }
