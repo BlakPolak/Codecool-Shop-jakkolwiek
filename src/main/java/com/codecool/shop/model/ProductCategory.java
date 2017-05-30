@@ -13,10 +13,6 @@ public class ProductCategory extends BaseModel {
         this.department = department;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String toString() {
         return String.format(
                 "id: %1$d," +
