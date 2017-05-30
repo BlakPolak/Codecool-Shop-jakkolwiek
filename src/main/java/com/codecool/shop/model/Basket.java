@@ -34,6 +34,7 @@ public class Basket {
     }
 
     public BasketItem getBasketItemByProductId(Integer id) {
+        if (id == null) throw new IllegalArgumentException();
         for(BasketItem basketItem : this.getItems()) {
             if(basketItem.getId().equals(id)) {
                 basketItem.setId(id);
