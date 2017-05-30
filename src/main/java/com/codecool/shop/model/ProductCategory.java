@@ -6,15 +6,7 @@ public class ProductCategory extends BaseModel {
 
     public ProductCategory(Integer id, String name, String description, String department) {
         super(id, name, description);
-        setDepartment(department);
-    }
-
-    private void setDepartment(String department) {
         this.department = department;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String toString() {
