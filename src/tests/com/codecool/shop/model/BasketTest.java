@@ -31,5 +31,16 @@ class BasketTest {
         assertEquals(basketItems.get(0).getQuantity(),
                 basket.getItems().get(0).getQuantity());
     }
+
+    @Test
+    public void testAddBasketItemIfItemInBasket() {
+        BasketItem basketItem = new BasketItem(this.product, 1);
+        Basket basket = new Basket();
+        ArrayList<BasketItem> basketItems = new ArrayList<>();
+        basketItems.add(basketItem);
+        basket.add(this.product, 1);
+        basket.add(this.product, 1);
+        assertEquals(1, basket.getItems().size());
+    }
 }
 
