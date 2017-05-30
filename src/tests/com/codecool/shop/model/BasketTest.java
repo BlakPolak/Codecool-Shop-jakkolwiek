@@ -74,5 +74,11 @@ class BasketTest {
         basket.add(this.product, 2);
         assertEquals(null, basket.getBasketItemById(2));
     }
+
+    @Test
+    public void testFindBasketItemIfBasketEmpty() {
+        Basket basket = new Basket();
+        assertEquals(null, basket.getBasketItemById(2));
+    }
 }
 
