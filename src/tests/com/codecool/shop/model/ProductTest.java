@@ -41,6 +41,16 @@ class ProductTest {
         assertEquals(supplier,product.getSupplier());
     }
 
+    @Test
+    void testSetAndGetProductCategory(){
+        ProductCategory productCategory = new ProductCategory(null,
+                                                            null,
+                                                            null,
+                                                            null);
+        product.setProductCategory(productCategory);
+        assertEquals(productCategory, product.getProductCategory());
+    }
+
 
 
 }
