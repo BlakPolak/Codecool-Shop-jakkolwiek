@@ -23,6 +23,7 @@ public class Basket {
     }
 
     public void remove(BasketItem item) {
+        if (!items.contains(item)) throw new IllegalArgumentException();
         items.remove(item);
     }
 
@@ -30,7 +31,7 @@ public class Basket {
         return items;
     }
 
-    public BasketItem getBasketItemById(Integer id) {
+    public BasketItem getBasketItemByProductId(Integer id) {
         for(BasketItem basketItem : this.getItems()) {
             if(basketItem.getId().equals(id)) {
                 basketItem.setId(id);
