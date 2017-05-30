@@ -37,6 +37,13 @@ class BasketTest {
     }
 
     @Test
+    public void testAddBasketItemWithQuantityLT0() {
+        assertThrows(IllegalArgumentException.class, ()-> {
+            basket.add(this.product, -1);
+        });
+    }
+
+    @Test
     public void testAddBasketItemIfItemInBasket() {
         BasketItem basketItem = new BasketItem(this.product, 1);
         ArrayList<BasketItem> basketItems = new ArrayList<>();
