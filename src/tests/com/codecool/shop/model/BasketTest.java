@@ -51,5 +51,14 @@ class BasketTest {
         basket.remove(basketItem);
         assertEquals(0, basket.getItems().size());
     }
+
+    @Test
+    public void testRemoveBasketItemIfItemNotInBasket() {
+        Basket basket = new Basket();
+        BasketItem basketItem = new BasketItem(this.product, 1);
+        assertThrows(IllegalArgumentException.class, ()-> {
+            basket.remove(basketItem);
+        });
+    }
 }
 
