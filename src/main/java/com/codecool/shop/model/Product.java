@@ -24,7 +24,7 @@ public class Product extends BaseModel {
         return supplier;
     }
 
-    private void setProductCategory(ProductCategory productCategory) {
+    public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
     }
 
@@ -32,12 +32,12 @@ public class Product extends BaseModel {
         return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency;
     }
 
-    private void setPrice(Float price, String currency) {
+    public void setPrice(Float price, String currency) {
         this.defaultPrice = price;
         this.defaultCurrency = currency;
     }
 
-    private void setSupplier(Supplier supplier) {
+    public void setSupplier(Supplier supplier) {
         this.supplier = supplier;
     }
 
