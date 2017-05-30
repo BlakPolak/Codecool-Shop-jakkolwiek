@@ -67,5 +67,12 @@ class BasketTest {
         basket.add(this.product, 2);
         assertEquals(1, (int) basket.getBasketItemById(1).getProduct().getId());
     }
+
+    @Test
+    public void testFindBasketItemByIdIfNotInBasket() {
+        Basket basket = new Basket();
+        basket.add(this.product, 2);
+        assertEquals(null, basket.getBasketItemById(2));
+    }
 }
 
