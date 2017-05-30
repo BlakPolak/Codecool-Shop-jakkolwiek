@@ -92,5 +92,12 @@ class BasketTest {
     public void testFindBasketItemIfBasketEmpty() {
         assertEquals(null, basket.getBasketItemByProductId(2));
     }
+
+    @Test
+    public void testFindBasketItemIfIdIsNull() {
+        assertThrows(IllegalArgumentException.class, ()-> {
+            basket.getBasketItemByProductId(null);
+        });
+    }
 }
 
