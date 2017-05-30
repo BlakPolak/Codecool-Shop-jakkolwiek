@@ -22,4 +22,15 @@ class ProductCategoryTest {
         productCategory.setId(2);
         assertEquals(2, (int) productCategory.getId());
     }
+
+    @Test
+    void testProductCategoryToString() {
+        assertEquals(
+                "id: 1," +
+                "name: Name," +
+                " department: Department," +
+                " description: Description",
+                productCategory.toString()
+        );
+    }
 }
