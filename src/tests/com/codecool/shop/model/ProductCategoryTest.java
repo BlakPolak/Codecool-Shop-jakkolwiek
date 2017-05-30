@@ -16,4 +16,10 @@ class ProductCategoryTest {
                 "Description",
                 "Department");
     }
+
+    @Test
+    void testSetIdForProductCategory() {
+        productCategory.setId(2);
+        assertEquals(2, (int) productCategory.getId());
+    }
 }
