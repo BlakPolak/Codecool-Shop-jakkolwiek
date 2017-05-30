@@ -12,7 +12,7 @@ class BasketItemTest {
 
     @BeforeEach
     public void createBasketItem() {
-        product = new Product(1, "Nice product", 10, "PLN", "description", null, null );
+        product = new Product(1, "Nice product", 10f, "PLN", "description", null, null );
         basketItem = new BasketItem(product, 1);
     }
 
@@ -26,7 +26,7 @@ class BasketItemTest {
     @Test
     public void testSetAndGetProduct() {
 
-        product = new Product(2, "Nice product2", 110, "PLN", "description", null, null );
+        product = new Product(2, "Nice product2", 110f, "PLN", "description", null, null );
         this.basketItem.setProduct(product);
         assertEquals(this.basketItem.getProduct(), product);
     }
