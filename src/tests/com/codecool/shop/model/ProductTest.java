@@ -29,7 +29,7 @@ class ProductTest {
     }
 
     @Test
-    void testFailIfPriceIsNotAccurate() {
+    void testSetAndGetPrice() {
         product.setPrice(12.99f, "PLN");
         assertEquals(12.99f + " " + "PLN",product.getPrice());
     }
