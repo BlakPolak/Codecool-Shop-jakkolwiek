@@ -5,23 +5,17 @@ import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.SqliteJDBCConnector;
 import com.codecool.shop.exception.DbCreateStructuresException;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import static spark.Spark.stop;
 
 public class Application {
     private static Application app;
-    private static Connection connection;
     private ProductController productController;
     private BasketController basketController;
 
     private Application() {
-        this.productController = new ProductController();
-        this.basketController = new BasketController();
-    }
-
-    public Connection getConnection() {
-        return connection;
+        this.productController = new ProductController(SqliteJDBCConnector.getConnection());
+        this.basketController = new BasketController(SqliteJDBCConnector.getConnection());
     }
 
     public static Application getApp() {
@@ -41,20 +35,20 @@ public class Application {
         final String initDb = "src/main/resources/init.sql";
         final String migrateDb = "src/main/resources/migrate.sql";
         try {
-            connection = SqliteJDBCConnector.connectToDb();
+            SqliteJDBCConnector.setConnection("jdbc:sqlite:src/main/resources/database.db");
             if (args.length > 0 && args[0].equals("--init-db")) {
-                SqliteJDBCConnector.runSql(connection, initDb);
+                SqliteJDBCConnector.runSql(SqliteJDBCConnector.getConnection(), initDb);
             } else if (args.length > 0 && args[0].equals("--migrate-db")) {
-                SqliteJDBCConnector.runSql(connection, migrateDb);
+                SqliteJDBCConnector.runSql(SqliteJDBCConnector.getConnection(), migrateDb);
             }
             if (app == null)
                 app = new Application();
             new Routes().run();
         } catch (SQLException | DbCreateStructuresException | IOException e) {
             e.printStackTrace();
-            if (connection != null) {
+            if (SqliteJDBCConnector.getConnection() != null) {
                 try {
-                    connection.close();
+                    SqliteJDBCConnector.getConnection().close();
                     stop();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
@@ -65,7 +59,7 @@ public class Application {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
                 Thread.sleep(200);
-                connection.close();
+                SqliteJDBCConnector.getConnection().close();
                 System.out.println("Shouting down ...");
             } catch (InterruptedException | SQLException e) {
                 e.printStackTrace();

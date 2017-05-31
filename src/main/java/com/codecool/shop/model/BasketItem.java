@@ -23,8 +23,6 @@ public class BasketItem extends BaseModel {
     }
 
     public void setQuantity(Integer quantity) {
-        if (quantity > 0) {
-            this.quantity = quantity;
-        }
+        if (quantity > 0) this.quantity = quantity;
     }
 }
