@@ -4,7 +4,9 @@ import com.codecool.shop.model.Supplier;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import database.SqliteJDBCForTests;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -17,9 +19,10 @@ class ProductSupplierDaoSqliteTest {
     private ProductSupplierDao productSupplierDao;
 
     @BeforeEach
-    void setConnectionToDBAndCreateDaoSqlite() throws SQLException {
+    void setup() throws SQLException, IOException {
         connection = DriverManager.getConnection("jdbc:sqlite:src/tests/test.db");
         productSupplierDao = new ProductSupplierDaoSqlite(connection);
+        SqliteJDBCForTests.run(connection, "src/tests/database/sqlQueries/supplierDao.sql");
     }
 
     @AfterEach
