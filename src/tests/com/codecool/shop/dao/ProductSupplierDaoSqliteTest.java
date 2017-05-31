@@ -26,4 +26,10 @@ class ProductSupplierDaoSqliteTest {
     void closeConnection() throws SQLException {
         connection.close();
     }
+
+    @Test
+    void testListHaveCorrectSizeForGetAllSuppliers() throws SQLException {
+        List<Supplier> supplierList = productSupplierDao.getAll();
+        assertEquals(3, supplierList.size());
+    }
 }
