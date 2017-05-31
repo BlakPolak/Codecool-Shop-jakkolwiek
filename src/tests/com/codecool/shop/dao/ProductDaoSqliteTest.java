@@ -35,4 +35,12 @@ class ProductDaoSqliteTest {
     void testGetAllReturnCorrectSize() throws SQLException{
         assertEquals(1,productDao.getAll().size());
     }
+
+    @Test
+    void testGetBySupplierReturnCorrectListSize() throws SQLException{
+        Supplier supplier = mock(Supplier.class);
+        when(supplier.getId()).thenReturn(1);
+        assertEquals(0,productDao.getBy(supplier).size());
+    }
+
 }
