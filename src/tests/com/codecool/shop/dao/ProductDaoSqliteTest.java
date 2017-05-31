@@ -1,5 +1,6 @@
 package com.codecool.shop.dao;
 
+import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,4 +44,20 @@ class ProductDaoSqliteTest {
         assertEquals(0,productDao.getBy(supplier).size());
     }
 
+    @Test
+    void testGetByProductCategoryReturnCorrectListSize() throws SQLException{
+        ProductCategory productCategory = mock(ProductCategory.class);
+        when(productCategory.getId()).thenReturn(1);
+        assertEquals(1,productDao.getBy(productCategory).size());
+    }
+
+    @Test
+    void testGetByIdIfProductsDoesNotExist() throws SQLException{
+        assertEquals(null,productDao.getBy(999));
+    }
+
+    @Test
+    void testGetByIdIfProductsExist() throws SQLException{
+        assertEquals("smartfon",productDao.getBy(3).getName());
+    }
 }
