@@ -14,6 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoSqlite extends BaseDao implements ProductDao {
+    ProductCategoryDao productCategoryDao;
+    ProductSupplierDao productSupplierDao;
+
+    public ProductDaoSqlite(Connection connection,
+                            ProductCategoryDao productCategoryDao,
+                            ProductSupplierDao productSupplierDao) {
+        super(connection);
+        this.productCategoryDao = productCategoryDao;
+        this.productSupplierDao = productSupplierDao;
+    }
 
     public ProductDaoSqlite(Connection connection) {
         super(connection);
@@ -64,8 +74,8 @@ public class ProductDaoSqlite extends BaseDao implements ProductDao {
                     rs.getFloat("price"),
                     "PLN",
                     rs.getString("description"),
-                    Application.getApp().getProductController().getProductCategoryDao().getBy(rs.getInt("category_id")),
-                    Application.getApp().getProductController().getProductSupplierDao().getBy(rs.getInt("supplier_id"))
+                    productCategoryDao.getBy(rs.getInt("category_id")),
+                    productSupplierDao.getBy(rs.getInt("supplier_id"))
             ));
         }
         return products;

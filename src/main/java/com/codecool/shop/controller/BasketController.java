@@ -17,8 +17,8 @@ public class BasketController extends  BaseController{
     private ProductDao productDao;
     private Basket basket;
 
-    public BasketController(Connection connection) {
-        this.productDao = new ProductDaoSqlite(connection);
+    public BasketController(ProductDao productDao) {
+        this.productDao = productDao;
         this.basket = new Basket();
     }
 
