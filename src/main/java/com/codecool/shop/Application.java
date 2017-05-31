@@ -2,9 +2,16 @@ package com.codecool.shop;
 
 import com.codecool.shop.controller.BasketController;
 import com.codecool.shop.controller.ProductController;
+import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.dao.ProductCategoryDaoSqlite;
+import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.ProductDaoSqlite;
+import com.codecool.shop.dao.ProductSupplierDao;
+import com.codecool.shop.dao.ProductSupplierDaoSqlite;
 import com.codecool.shop.dao.SqliteJDBCConnector;
 import com.codecool.shop.exception.DbCreateStructuresException;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import static spark.Spark.stop;
 
@@ -14,8 +21,12 @@ public class Application {
     private BasketController basketController;
 
     private Application() {
-        this.productController = new ProductController(SqliteJDBCConnector.getConnection());
-        this.basketController = new BasketController(SqliteJDBCConnector.getConnection());
+        Connection connection = SqliteJDBCConnector.getConnection();
+        ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite(connection);
+        ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite(connection);
+        ProductDao productDao = new ProductDaoSqlite(connection, productCategoryDao, productSupplierDao);
+        this.productController = new ProductController(productDao, productSupplierDao, productCategoryDao);
+        this.basketController = new BasketController(productDao);
     }
 
     public static Application getApp() {

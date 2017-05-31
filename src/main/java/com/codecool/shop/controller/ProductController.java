@@ -14,13 +14,15 @@ import java.util.*;
 
 public class ProductController extends BaseController{
     private ProductDao productDao;
-    private ProductCategoryDao productCategoryDao;
     private ProductSupplierDao productSupplierDao;
+    private ProductCategoryDao productCategoryDao;
 
-    public ProductController(Connection connection) {
-        this.productDao = new ProductDaoSqlite(connection);
-        this.productCategoryDao = new ProductCategoryDaoSqlite(connection);
-        this.productSupplierDao = new ProductSupplierDaoSqlite(connection);
+    public ProductController(ProductDao productDao,
+                             ProductSupplierDao productSupplierDao,
+                             ProductCategoryDao productCategoryDao) {
+        this.productDao = productDao;
+        this.productSupplierDao = productSupplierDao;
+        this.productCategoryDao = productCategoryDao;
     }
 
     public ProductCategoryDao getProductCategoryDao() {
