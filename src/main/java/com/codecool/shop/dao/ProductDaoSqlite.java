@@ -4,6 +4,8 @@ import com.codecool.shop.Application;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoSqlite extends BaseDao implements ProductDao {
+
+    public ProductDaoSqlite(Connection connection) {
+        super(connection);
+    }
 
     @Override
     public List<Product> getAll() throws SQLException {
