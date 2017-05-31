@@ -1,4 +1,4 @@
-package tests.dao;
+package database;
 
 import com.codecool.shop.exception.DbCreateStructuresException;
 
