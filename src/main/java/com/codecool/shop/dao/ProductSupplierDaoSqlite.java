@@ -1,6 +1,8 @@
 package com.codecool.shop.dao;
 
 import com.codecool.shop.model.Supplier;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +11,11 @@ import java.util.List;
 
 public class ProductSupplierDaoSqlite extends BaseDao implements ProductSupplierDao {
 
-     @Override
+    public ProductSupplierDaoSqlite(Connection connection) {
+        super(connection);
+    }
+
+    @Override
     public Supplier getBy(Integer id) throws SQLException {
         PreparedStatement statement = this.getConnection().prepareStatement("select * from suppliers where id = ?");
         statement.setInt(1, id);
