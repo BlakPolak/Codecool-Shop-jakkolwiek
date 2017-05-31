@@ -21,4 +21,9 @@ class ProductSupplierDaoSqliteTest {
         connection = SqliteJDBCConnector.getConnection();
         productSupplierDao = new ProductSupplierDaoSqlite(connection);
     }
+
+    @AfterEach
+    void closeConnection() throws SQLException {
+        connection.close();
+    }
 }
