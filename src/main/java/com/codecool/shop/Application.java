@@ -2,6 +2,12 @@ package com.codecool.shop;
 
 import com.codecool.shop.controller.BasketController;
 import com.codecool.shop.controller.ProductController;
+import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.dao.ProductCategoryDaoSqlite;
+import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.ProductDaoSqlite;
+import com.codecool.shop.dao.ProductSupplierDao;
+import com.codecool.shop.dao.ProductSupplierDaoSqlite;
 import com.codecool.shop.dao.SqliteJDBCConnector;
 import com.codecool.shop.exception.DbCreateStructuresException;
 import java.io.IOException;
@@ -11,17 +17,16 @@ import static spark.Spark.stop;
 
 public class Application {
     private static Application app;
-    private static Connection connection;
     private ProductController productController;
     private BasketController basketController;
 
     private Application() {
-        this.productController = new ProductController();
-        this.basketController = new BasketController();
-    }
-
-    public Connection getConnection() {
-        return connection;
+        Connection connection = SqliteJDBCConnector.getConnection();
+        ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite(connection);
+        ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite(connection);
+        ProductDao productDao = new ProductDaoSqlite(connection, productCategoryDao, productSupplierDao);
+        this.productController = new ProductController(productDao, productSupplierDao, productCategoryDao);
+        this.basketController = new BasketController(productDao);
     }
 
     public static Application getApp() {
@@ -41,20 +46,20 @@ public class Application {
         final String initDb = "src/main/resources/init.sql";
         final String migrateDb = "src/main/resources/migrate.sql";
         try {
-            connection = SqliteJDBCConnector.connectToDb();
+            SqliteJDBCConnector.setConnection("jdbc:sqlite:src/main/resources/database.db");
             if (args.length > 0 && args[0].equals("--init-db")) {
-                SqliteJDBCConnector.runSql(connection, initDb);
+                SqliteJDBCConnector.runSql(SqliteJDBCConnector.getConnection(), initDb);
             } else if (args.length > 0 && args[0].equals("--migrate-db")) {
-                SqliteJDBCConnector.runSql(connection, migrateDb);
+                SqliteJDBCConnector.runSql(SqliteJDBCConnector.getConnection(), migrateDb);
             }
             if (app == null)
                 app = new Application();
             new Routes().run();
         } catch (SQLException | DbCreateStructuresException | IOException e) {
             e.printStackTrace();
-            if (connection != null) {
+            if (SqliteJDBCConnector.getConnection() != null) {
                 try {
-                    connection.close();
+                    SqliteJDBCConnector.getConnection().close();
                     stop();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
@@ -65,7 +70,7 @@ public class Application {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
                 Thread.sleep(200);
-                connection.close();
+                SqliteJDBCConnector.getConnection().close();
                 System.out.println("Shouting down ...");
             } catch (InterruptedException | SQLException e) {
                 e.printStackTrace();
