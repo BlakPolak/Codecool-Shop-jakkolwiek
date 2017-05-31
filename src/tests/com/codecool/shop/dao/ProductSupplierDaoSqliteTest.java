@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,8 +18,7 @@ class ProductSupplierDaoSqliteTest {
 
     @BeforeEach
     void setConnectionToDBAndCreateDaoSqlite() throws SQLException {
-        SqliteJDBCConnector.setConnection("jdbc:sqlite:src/tests/test.db");
-        connection = SqliteJDBCConnector.getConnection();
+        connection = DriverManager.getConnection("jdbc:sqlite:src/tests/test.db");
         productSupplierDao = new ProductSupplierDaoSqlite(connection);
     }
 
