@@ -32,4 +32,11 @@ class ProductSupplierDaoSqliteTest {
         List<Supplier> supplierList = productSupplierDao.getAll();
         assertEquals(3, supplierList.size());
     }
+
+    @Test
+    void testGetOneSupplierById_2() throws SQLException {
+        Supplier supplier = productSupplierDao.getBy(2);
+        Supplier correctSupplier = new Supplier(2, "Media markt", "niemiecki koncern");
+        assertEquals(correctSupplier.getName(), supplier.getName());
+    }
 }
