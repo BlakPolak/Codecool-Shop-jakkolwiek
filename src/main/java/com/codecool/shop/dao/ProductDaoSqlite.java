@@ -25,6 +25,10 @@ public class ProductDaoSqlite extends BaseDao implements ProductDao {
         this.productSupplierDao = productSupplierDao;
     }
 
+    public ProductDaoSqlite(Connection connection) {
+        super(connection);
+    }
+
     @Override
     public List<Product> getAll() throws SQLException {
         List<Product> products;

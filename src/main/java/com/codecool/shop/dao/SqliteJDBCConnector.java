@@ -9,6 +9,16 @@ import java.sql.Statement;
 
 public class SqliteJDBCConnector {
 
+    private static Connection connection;
+
+    public static void setConnection(String path) throws SQLException {
+        connection = DriverManager.getConnection(path);
+    }
+
+    public static Connection getConnection() {
+        return connection;
+    }
+
     public static Connection connectToDb() throws SQLException {
         return DriverManager.getConnection("jdbc:sqlite:src/main/resources/database.db");
     }

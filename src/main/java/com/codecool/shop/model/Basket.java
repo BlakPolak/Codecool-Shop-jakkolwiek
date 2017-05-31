@@ -7,6 +7,8 @@ public class Basket {
     private List<BasketItem> items = new ArrayList<>();
 
     public void add(Product product, Integer quantity) {
+        if (quantity < 1) throw new IllegalArgumentException();
+        if (product.equals(null)) throw new IllegalArgumentException();
         boolean productExists = false;
         for(BasketItem item: this.getItems()) {
             if(item.getProduct().getId() == product.getId()) {
@@ -32,6 +34,7 @@ public class Basket {
     }
 
     public BasketItem getBasketItemByProductId(Integer id) {
+        if (id == null) throw new IllegalArgumentException();
         for(BasketItem basketItem : this.getItems()) {
             if(basketItem.getId().equals(id)) {
                 basketItem.setId(id);
