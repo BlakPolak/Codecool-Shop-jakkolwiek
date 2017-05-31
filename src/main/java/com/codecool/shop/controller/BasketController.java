@@ -7,14 +7,20 @@ import com.codecool.shop.model.*;
 import spark.Request;
 import spark.Response;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class BasketController extends  BaseController{
-    private ProductDao productDao = new ProductDaoSqlite();
-    private Basket basket = new Basket();
+    private ProductDao productDao;
+    private Basket basket;
+
+    public BasketController(ProductDao productDao) {
+        this.productDao = productDao;
+        this.basket = new Basket();
+    }
 
     public Basket getBasket() {
         return basket;
