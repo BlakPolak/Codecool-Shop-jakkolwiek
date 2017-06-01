@@ -19,10 +19,6 @@ public class SqliteJDBCConnector {
         return connection;
     }
 
-    public static Connection connectToDb() throws SQLException {
-        return DriverManager.getConnection("jdbc:sqlite:src/main/resources/database.db");
-    }
-
     public static void runSql(Connection c, String path) throws DbCreateStructuresException, IOException {
         String s;
         StringBuilder sb = new StringBuilder();
