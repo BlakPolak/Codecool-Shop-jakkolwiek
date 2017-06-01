@@ -47,4 +47,24 @@ class ProductCategoryDaoSqliteTest {
         productCategoryDaoEmptyDB = new ProductCategoryDaoSqlite(connection);
         assertEquals(0, productCategoryDaoEmptyDB.getAll().size());
     }
+
+    @Test
+    public void testGetByIdProductCategoriesFromDBWrongThrowsSQLEx() throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:src/tests/wrong.db");
+        ProductCategoryDaoSqlite productCategoryDaoWrongDB =
+                new ProductCategoryDaoSqlite(connection);
+        assertThrows(SQLException.class, ()-> {
+            productCategoryDaoWrongDB.getBy(1);
+        });
+    }
+
+    @Test
+    public void testGetAllProductCategoriesFromDBWrongThrowsSQLEx() throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:src/tests/wrong.db");
+        ProductCategoryDaoSqlite productCategoryDaoWrongDB =
+                new ProductCategoryDaoSqlite(connection);
+        assertThrows(SQLException.class, ()-> {
+            productCategoryDaoWrongDB.getAll();
+        });
+    }
 }
