@@ -8,13 +8,20 @@ import com.codecool.shop.model.Supplier;
 import spark.Request;
 import spark.Response;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
 
 public class ProductController extends BaseController{
-    private ProductDao productDao = new ProductDaoSqlite();
-    private ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite();
-    private ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite();
+    private ProductDao productDao;
+    private ProductCategoryDao productCategoryDao;
+    private ProductSupplierDao productSupplierDao;
+
+    public ProductController(Connection connection) {
+        this.productDao = new ProductDaoSqlite(connection);
+        this.productCategoryDao = new ProductCategoryDaoSqlite(connection);
+        this.productSupplierDao = new ProductSupplierDaoSqlite(connection);
+    }
 
     public ProductCategoryDao getProductCategoryDao() {
         return productCategoryDao;

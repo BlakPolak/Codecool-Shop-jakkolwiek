@@ -23,6 +23,18 @@ public class BasketItem extends BaseModel {
     }
 
     public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+        if (quantity > 0) this.quantity = quantity;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BasketItem that = (BasketItem) o;
+
+        if (product != null ? !product.equals(that.product) : that.product != null) return false;
+        return quantity != null ? quantity.equals(that.quantity) : that.quantity == null;
+    }
+
 }
