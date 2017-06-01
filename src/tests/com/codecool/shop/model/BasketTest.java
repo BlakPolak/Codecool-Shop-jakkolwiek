@@ -27,13 +27,8 @@ class BasketTest {
     @Test
     public void testAddBasketItemIfNotInBasket() {
         BasketItem basketItem = new BasketItem(this.product, 1);
-        ArrayList<BasketItem> basketItems = new ArrayList<>();
-        basketItems.add(basketItem);
         basket.add(this.product, 1);
-        assertEquals(basketItems.get(0).getProduct(),
-                basket.getItems().get(0).getProduct());
-        assertEquals(basketItems.get(0).getQuantity(),
-                basket.getItems().get(0).getQuantity());
+        assertEquals(basketItem, basket.getItems().get(0));
     }
 
     @Test
