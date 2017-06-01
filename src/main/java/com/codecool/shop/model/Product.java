@@ -41,4 +41,18 @@ public class Product extends BaseModel {
         this.supplier = supplier;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        if (!super.equals(other)) return false;
+        Product product = (Product) other;
+        if (defaultPrice != null ? !defaultPrice.equals(product.defaultPrice) : product.defaultPrice != null)
+            return false;
+        if (defaultCurrency != null ? !defaultCurrency.equals(product.defaultCurrency) : product.defaultCurrency != null)
+            return false;
+        if (productCategory != null ? !productCategory.equals(product.productCategory) : product.productCategory != null)
+            return false;
+        return supplier != null ? supplier.equals(product.supplier) : product.supplier == null;
+    }
 }
