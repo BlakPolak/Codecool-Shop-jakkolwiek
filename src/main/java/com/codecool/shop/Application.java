@@ -20,7 +20,7 @@ public class Application {
     private ProductController productController;
     private BasketController basketController;
 
-    private Application(Connection connection) {
+    public Application(Connection connection) {
         ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite(connection);
         ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite(connection);
         ProductDao productDao = new ProductDaoSqlite(connection, productCategoryDao, productSupplierDao);
