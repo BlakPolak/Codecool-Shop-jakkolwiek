@@ -60,13 +60,4 @@ public class BasketController extends  BaseController{
         String templatePath = "product/basket";
         return this.getModel(templatePath, model);
     }
-
-    @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
-        BasketController that = (BasketController) other;
-        if (productDao != null ? !productDao.equals(that.productDao) : that.productDao != null) return false;
-        return basket != null ? basket.equals(that.basket) : that.basket == null;
-    }
 }

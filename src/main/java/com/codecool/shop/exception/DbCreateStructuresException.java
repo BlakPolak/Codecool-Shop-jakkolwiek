@@ -6,3 +6,4 @@ public class DbCreateStructuresException extends RuntimeException {
         super(message);
     }
 }
+

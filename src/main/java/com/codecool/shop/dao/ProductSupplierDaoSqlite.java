@@ -41,3 +41,4 @@ public class ProductSupplierDaoSqlite extends BaseDao implements ProductSupplier
         return suppliers;
     }
 }
+
