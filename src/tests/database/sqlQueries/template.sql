@@ -20,8 +20,9 @@ CREATE TABLE "products"
     category_id INT, supplier_id INTEGER NULL,
     CONSTRAINT products_categories_id_fk FOREIGN KEY (category_id) REFERENCES categories (id)
 );
-INSERT INTO `products` (id,name,description,price,category_id,supplier_id) VALUES (3,'smartfon','tani smartfon',345.0,1,2),
- (10,'laptop','laptop Dell',3000.0,2,4),
+INSERT INTO `products` (id,name,description,price,category_id,supplier_id) 
+VALUES (3,'smartfon','tani smartfon',345.0,1,1),
+ (10,'laptop','laptop Dell',3000.0,2,2),
  (11,'telewizor','Samsung 4K',5000.0,3,3),
  (13,'smartfon','drogi smartfon',800.0,1,2),
  (14,'telewizor ','mały telewizor',7000.0,3,3),
