@@ -2,10 +2,12 @@ package com.codecool.shop.dao;
 
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import database.SqliteJDBCForTests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -19,7 +21,7 @@ class ProductDaoSqliteTest {
     private ProductDao productDao;
 
     @BeforeEach
-    void createDbConnection() throws SQLException {
+    void createDbConnectionAndObjectsNeededInTests() throws SQLException, IOException {
         connection = DriverManager.getConnection("jdbc:sqlite:src/tests/test.db");
         productCategoryDao = mock(ProductCategoryDaoSqlite.class);
         when(productCategoryDao.getBy(anyInt())).thenReturn(null);
@@ -30,11 +32,12 @@ class ProductDaoSqliteTest {
                 productCategoryDao,
                 productSupplierDao
         );
+        SqliteJDBCForTests.run(connection, "src/tests/database/sqlQueries/template.sql");
     }
 
     @Test
     void testGetAllReturnCorrectSize() throws SQLException{
-        assertEquals(1,productDao.getAll().size());
+        assertEquals(6,productDao.getAll().size());
     }
 
     @Test
@@ -48,7 +51,7 @@ class ProductDaoSqliteTest {
     void testGetByProductCategoryReturnCorrectListSize() throws SQLException{
         ProductCategory productCategory = mock(ProductCategory.class);
         when(productCategory.getId()).thenReturn(1);
-        assertEquals(1,productDao.getBy(productCategory).size());
+        assertEquals(2,productDao.getBy(productCategory).size());
     }
 
     @Test
@@ -58,12 +61,12 @@ class ProductDaoSqliteTest {
 
     @Test
     void testGetByIdIfProductsExist() throws SQLException{
-        assertEquals("smartfon",productDao.getBy(3).getName());
+        assertEquals("smartfon",productDao.getBy(13).getName());
     }
 
     @Test
     void testAddProductReturnCorrectId() throws SQLException{
         //TODO set excepted to static value when db creator ready
-        assertEquals("20",productDao.addProduct("a", 12.3f, "a", 2, 2).toString());
+        assertEquals("16",productDao.addProduct("a", 12.3f, "a", 2, 2).toString());
     }
 }
