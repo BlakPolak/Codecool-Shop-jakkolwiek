@@ -20,8 +20,7 @@ public class Application {
     private ProductController productController;
     private BasketController basketController;
 
-    private Application() {
-        Connection connection = SqliteJDBCConnector.getConnection();
+    private Application(Connection connection) {
         ProductCategoryDao productCategoryDao = new ProductCategoryDaoSqlite(connection);
         ProductSupplierDao productSupplierDao = new ProductSupplierDaoSqlite(connection);
         ProductDao productDao = new ProductDaoSqlite(connection, productCategoryDao, productSupplierDao);
@@ -53,7 +52,7 @@ public class Application {
                 SqliteJDBCConnector.runSql(SqliteJDBCConnector.getConnection(), migrateDb);
             }
             if (app == null)
-                app = new Application();
+                app = new Application(SqliteJDBCConnector.getConnection());
             new Routes().run();
         } catch (SQLException | DbCreateStructuresException | IOException e) {
             e.printStackTrace();
