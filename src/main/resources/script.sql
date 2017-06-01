@@ -26,7 +26,7 @@ CREATE TABLE categories
     description TEXT NOT NULL,
     department VARCHAR(255) NOT NULL
 );
-INSERT INTO `categories` (id,name,description,department) VALUES (1,'jedzenie','kategoria jedzeniowa','departament jedzenia'),
+INSERT INTO `categories` (id,namee,description,department) VALUES (1,'jedzenie','kategoria jedzeniowa','departament jedzenia'),
  (2,'elektronika','kategoria elektronika','departament elektroniki');
 CREATE UNIQUE INDEX suppliers_id_uindex ON suppliers (id);
 COMMIT;

@@ -20,7 +20,7 @@ class BasketItemTest {
     public void testIsQuantityLTzero() {
 
         this.basketItem.setQuantity(-10);
-        assertFalse(this.basketItem.getQuantity()<0);
+        assertFalse(this.basketItem.getQuantity() == -10);
     }
 
     @Test

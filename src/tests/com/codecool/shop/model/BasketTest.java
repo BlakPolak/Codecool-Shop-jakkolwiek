@@ -27,13 +27,22 @@ class BasketTest {
     @Test
     public void testAddBasketItemIfNotInBasket() {
         BasketItem basketItem = new BasketItem(this.product, 1);
-        ArrayList<BasketItem> basketItems = new ArrayList<>();
-        basketItems.add(basketItem);
         basket.add(this.product, 1);
-        assertEquals(basketItems.get(0).getProduct(),
-                basket.getItems().get(0).getProduct());
-        assertEquals(basketItems.get(0).getQuantity(),
-                basket.getItems().get(0).getQuantity());
+        assertEquals(basketItem, basket.getItems().get(0));
+    }
+
+    @Test
+    public void testAddBasketItemWithQuantityLT0() {
+        assertThrows(IllegalArgumentException.class, ()-> {
+            basket.add(this.product, -1);
+        });
+    }
+
+    @Test
+    public void testAddNullToBasket() {
+        assertThrows(IllegalArgumentException.class, ()-> {
+            basket.add(null, 1);
+        });
     }
 
     @Test
@@ -77,6 +86,13 @@ class BasketTest {
     @Test
     public void testFindBasketItemIfBasketEmpty() {
         assertEquals(null, basket.getBasketItemByProductId(2));
+    }
+
+    @Test
+    public void testFindBasketItemIfIdIsNull() {
+        assertThrows(IllegalArgumentException.class, ()-> {
+            basket.getBasketItemByProductId(null);
+        });
     }
 }
 
