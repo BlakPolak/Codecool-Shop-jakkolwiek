@@ -66,7 +66,6 @@ class ProductDaoSqliteTest {
 
     @Test
     void testAddProductReturnCorrectId() throws SQLException{
-        //TODO set excepted to static value when db creator ready
         assertEquals("16",productDao.addProduct("a", 12.3f, "a", 2, 2).toString());
     }
 }
