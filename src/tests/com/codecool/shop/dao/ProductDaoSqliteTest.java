@@ -48,6 +48,13 @@ class ProductDaoSqliteTest {
     }
 
     @Test
+    void testGetBySupplierThrowsIllegalArgumentExceptionIfSupplierHaveNullId(){
+        Supplier supplier = mock(Supplier.class);
+        when(supplier.getId()).thenReturn(null);
+        assertThrows(IllegalArgumentException.class, () -> productDao.getBy(supplier));
+    }
+
+    @Test
     void testGetByProductCategoryReturnCorrectListSize() throws SQLException{
         ProductCategory productCategory = mock(ProductCategory.class);
         when(productCategory.getId()).thenReturn(1);
