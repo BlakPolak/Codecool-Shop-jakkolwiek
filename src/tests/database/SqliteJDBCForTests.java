@@ -26,7 +26,6 @@ public class SqliteJDBCForTests {
             for(Integer i = 0; i<inst.length; i++) {
                 if(!inst[i].trim().equals("")) {
                     st.executeUpdate(inst[i]);
-                    System.out.println(">>"+inst[i]);
                 }
             }
         }
