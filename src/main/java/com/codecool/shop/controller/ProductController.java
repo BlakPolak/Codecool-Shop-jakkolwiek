@@ -100,4 +100,15 @@ public class ProductController extends BaseController{
         }
         return JsonUtil.objectToJson(map);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        ProductController that = (ProductController) other;
+        if (productDao != null ? !productDao.equals(that.productDao) : that.productDao != null) return false;
+        if (productSupplierDao != null ? !productSupplierDao.equals(that.productSupplierDao) : that.productSupplierDao != null)
+            return false;
+        return productCategoryDao != null ? productCategoryDao.equals(that.productCategoryDao) : that.productCategoryDao == null;
+    }
 }
