@@ -60,4 +60,10 @@ class ProductDaoSqliteTest {
     void testGetByIdIfProductsExist() throws SQLException{
         assertEquals("smartfon",productDao.getBy(3).getName());
     }
+
+    @Test
+    void testAddProductReturnCorrectId() throws SQLException{
+        //TODO set excepted to static value when db creator ready
+        assertEquals("20",productDao.addProduct("a", 12.3f, "a", 2, 2).toString());
+    }
 }
