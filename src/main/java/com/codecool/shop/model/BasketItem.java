@@ -35,3 +35,4 @@ public class BasketItem extends BaseModel {
         return quantity != null ? quantity.equals(that.quantity) : that.quantity == null;
     }
 }
+

@@ -76,14 +76,5 @@ public class Application {
             }
         }));
     }
-
-    @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
-        Application that = (Application) other;
-        if (productController != null ? !productController.equals(that.productController) : that.productController != null)
-            return false;
-        return basketController != null ? basketController.equals(that.basketController) : that.basketController == null;
-    }
 }
+
