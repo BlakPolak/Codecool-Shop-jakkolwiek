@@ -62,6 +62,13 @@ class ProductDaoSqliteTest {
     }
 
     @Test
+    void testGetByProductCategoryThrowsIllegalArgumentExceptionIfProductCategoryHaveNullId() throws SQLException{
+        ProductCategory productCategory = mock(ProductCategory.class);
+        when(productCategory.getId()).thenReturn(null);
+        assertThrows(IllegalArgumentException.class,()->productDao.getBy(productCategory));
+    }
+
+    @Test
     void testGetByIdIfProductsDoesNotExist() throws SQLException{
         assertEquals(null,productDao.getBy(999));
     }
