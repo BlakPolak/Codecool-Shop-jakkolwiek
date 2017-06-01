@@ -33,4 +33,12 @@ class ProductCategoryDaoSqliteTest {
         productCategoryDao = new ProductCategoryDaoSqlite(connection);
         assertTrue("smartfony".equals(productCategoryDao.getBy(1).getName()));
     }
+
+    @Test
+    public void testGetAllProductCategoriesFromDBEmptyReturnEmptyList() throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:src/tests/empty.db");
+        productCategoryDaoEmptyDB = new ProductCategoryDaoSqlite(connection);
+        assertEquals(0, productCategoryDaoEmptyDB.getAll().size());
+    }
+    
 }
