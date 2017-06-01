@@ -43,4 +43,13 @@ public class BaseModel {
         this.description = description;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+        BaseModel baseModel = (BaseModel) other;
+        if (id != null ? !id.equals(baseModel.id) : baseModel.id != null) return false;
+        if (name != null ? !name.equals(baseModel.name) : baseModel.name != null) return false;
+        return description != null ? description.equals(baseModel.description) : baseModel.description == null;
+    }
 }
