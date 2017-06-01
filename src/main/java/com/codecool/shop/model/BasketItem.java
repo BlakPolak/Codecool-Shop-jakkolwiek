@@ -27,10 +27,12 @@ public class BasketItem extends BaseModel {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
-        BasketItem that = (BasketItem) other;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BasketItem that = (BasketItem) o;
+
         if (product != null ? !product.equals(that.product) : that.product != null) return false;
         return quantity != null ? quantity.equals(that.quantity) : that.quantity == null;
     }
