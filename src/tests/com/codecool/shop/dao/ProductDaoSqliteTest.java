@@ -1,5 +1,6 @@
 package com.codecool.shop.dao;
 
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import database.SqliteJDBCForTests;
@@ -70,12 +71,21 @@ class ProductDaoSqliteTest {
 
     @Test
     void testGetByIdIfProductsDoesNotExist() throws SQLException{
-        assertEquals(null,productDao.getBy(999));
+        assertThrows(IllegalArgumentException.class,() -> productDao.getBy(13));
     }
 
     @Test
     void testGetByIdIfProductsExist() throws SQLException{
-        assertEquals("smartfon",productDao.getBy(13).getName());
+        Product product = new Product(
+                13,
+                "smartfon",
+                800f,
+                "PLN",
+                "drogi smartfon",
+                null,
+                null
+        );
+        assertEquals(product,productDao.getBy(13));
     }
 
     @Test
