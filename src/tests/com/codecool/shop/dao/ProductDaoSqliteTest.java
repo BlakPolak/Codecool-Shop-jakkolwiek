@@ -68,4 +68,15 @@ class ProductDaoSqliteTest {
     void testAddProductReturnCorrectId() throws SQLException{
         assertEquals("16",productDao.addProduct("a", 12.3f, "a", 2, 2).toString());
     }
+
+    @Test
+    void testAddProductThrowsIllegalArgumentExceptionIfNullArgumentPassed() throws SQLException{
+        assertThrows(IllegalArgumentException.class,() -> productDao.addProduct(
+                null,
+                null,
+                null,
+                null,
+                null
+                ));
+    }
 }
