@@ -27,5 +27,10 @@ class ProductCategoryDaoSqliteTest {
         assertEquals(3, productCategoryDao.getAll().size());
     }
 
-
+    @Test
+    public void testGetProductCategoriesByIdFromDB() throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:src/tests/test.db");
+        productCategoryDao = new ProductCategoryDaoSqlite(connection);
+        assertTrue("smartfony".equals(productCategoryDao.getBy(1).getName()));
+    }
 }
